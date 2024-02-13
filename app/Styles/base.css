@@ -1,0 +1,68 @@
+:root{
+    --text-color-dark: #666666;
+    --text-color-light: #a7a7a7;
+    --heading-color-dark: #42446e;
+    --heading-color-light: #cccccc;
+    --background-dark: #191919;
+    --background-light: #ffffff;
+    --button-color: #018c0f;
+    --gradient-to-right: linear-gradient(to right, #13B0F5, #E70FAA);
+    --gradient-to-bottom: linear-gradient(to bottom, #E70FAA, #13B0F5);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color-dark);
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    
+}
+
+.antHeader{
+    background-color: #fff !important;
+    color: var(--heading-color-dark) !important;
+}
+
+.ant-menu-item-selected {
+    color: inherit !important;
+    border-bottom: none !important;
+}
+
+.ant-menu-item-selected::after{
+    border-bottom: none !important;
+}
+.ant-menu-item:hover {
+    border: none !important;
+}
+.ant-anchor-wrapper .ant-anchor {
+    /* padding-inline: 40px 0 !important; */
+    gap: 30px;
+    font-size: 16px !important;
+}  
+.ant-anchor-wrapper-horizontal::before {
+    border: none !important;
+}
+
+.ant-anchor-wrapper:not(.ant-anchor-wrapper-horizontal) .ant-anchor::before {
+    border: none !important;
+}
+.ant-layout-header{
+    padding: 0;
+}
