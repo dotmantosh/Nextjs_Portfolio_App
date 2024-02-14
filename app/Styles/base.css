@@ -17,7 +17,7 @@ html {
 body {
     font-size: 16px;
     line-height: 1.6;
-    color: var(--text-color-dark);
+    color: var(--text-color-light);
     overflow-x: hidden;
 }
 
@@ -36,7 +36,7 @@ body {
 }
 
 .antHeader{
-    background-color: #fff !important;
+    background-color: var(--background-dark) !important;
     color: var(--heading-color-dark) !important;
 }
 
@@ -52,9 +52,10 @@ body {
     border: none !important;
 }
 .ant-anchor-wrapper .ant-anchor {
-    /* padding-inline: 40px 0 !important; */
     gap: 30px;
     font-size: 16px !important;
+    color: var(--text-color-dark) !important;
+
 }  
 .ant-anchor-wrapper-horizontal::before {
     border: none !important;
