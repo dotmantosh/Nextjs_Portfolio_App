@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Drawer, Menu, Anchor } from 'antd';
 import { MenuOutlined } from "@ant-design/icons"
 import styles from '../../Styles/_header.module.css'
-import { GithubIconSvg, LinkedinIconSvg, TwitterIconSvg } from '../SVGs/SVGIcons';
+import { GithubIconSvgLight, LinkedinIconSvgLight, TwitterIconSvgLight } from '../SVGs/SVGIcons';
 
 const { Link } = Anchor
 
@@ -79,8 +79,8 @@ function AppHeader() {
           <div className={styles.appMenu}>
             <span className={styles.appMenuAnchor}>
               <Anchor direction='horizontal' style={{
-                color: "#666666",
-                fontSize: 20,
+                color: "#a7a7a7",
+                fontSize: 25,
                 border: 'none',
                 gap: 40
               }}>
@@ -93,9 +93,9 @@ function AppHeader() {
             </span>
 
             <div className={styles.headerSocials}>
-              <GithubIconSvg />
-              <TwitterIconSvg />
-              <LinkedinIconSvg />
+              <GithubIconSvgLight />
+              <TwitterIconSvgLight />
+              <LinkedinIconSvgLight />
             </div>
           </div>
 
@@ -127,9 +127,9 @@ function AppHeader() {
               </Anchor>
 
               <div className={`${styles.headerSocials} ${styles.mobileHeaderSocials}`}>
-                <GithubIconSvg />
-                <TwitterIconSvg />
-                <LinkedinIconSvg />
+                <GithubIconSvgLight />
+                <TwitterIconSvgLight />
+                <LinkedinIconSvgLight />
               </div>
             </Drawer>
           </div>
