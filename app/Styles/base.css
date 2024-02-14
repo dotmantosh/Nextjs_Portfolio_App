@@ -11,13 +11,14 @@
 }
 
 html {
-    font-size: 62.5%;
+    font-size: 62.5% !important;
 }
 
 body {
     font-size: 16px;
     line-height: 1.6;
-    color: var(--text-color-light);
+    color: var(--text-color-light) !important;
+    background-color: var(--background-dark) !important;
     overflow-x: hidden;
 }
 
@@ -26,44 +27,36 @@ body {
 *::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+    transition: .5s ease-out;
+}
+
+button:active, .buttonMoveDown{
+    transform: translateY(2px);
 }
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto;   
+}
+
+.nav-item{
+    margin-right: 2rem;
+}
+
+.navbar-nav .nav-link{
+    color: var(--text-color-light);
+}
+
+
+
+.appNavs {
+    margin-right: 5rem;
+}
+
+
+
+@media (max-width: 797px) {
     
-}
-
-.antHeader{
-    background-color: var(--background-dark) !important;
-    color: var(--heading-color-dark) !important;
-}
-
-.ant-menu-item-selected {
-    color: inherit !important;
-    border-bottom: none !important;
-}
-
-.ant-menu-item-selected::after{
-    border-bottom: none !important;
-}
-.ant-menu-item:hover {
-    border: none !important;
-}
-.ant-anchor-wrapper .ant-anchor {
-    gap: 30px;
-    font-size: 16px !important;
-    color: var(--text-color-dark) !important;
-
-}  
-.ant-anchor-wrapper-horizontal::before {
-    border: none !important;
-}
-
-.ant-anchor-wrapper:not(.ant-anchor-wrapper-horizontal) .ant-anchor::before {
-    border: none !important;
-}
-.ant-layout-header{
-    padding: 0;
+    
 }
