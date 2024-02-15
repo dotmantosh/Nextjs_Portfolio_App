@@ -1,0 +1,28 @@
+.hero{
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+    color: var(--text-hero-color-light);
+}
+
+.hero h2{
+    font-size: 5rem;
+}
+
+.hero h2 span{
+    background-image: var(--gradient-to-right);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.heroImgContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.heroImg{
+    width: 35rem;
+    height: 35rem;
+    border-radius: 50%;
+    border: 2px solid red;
+}

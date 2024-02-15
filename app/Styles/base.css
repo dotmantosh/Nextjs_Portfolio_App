@@ -1,6 +1,7 @@
 :root{
     --text-color-dark: #666666;
     --text-color-light: #a7a7a7;
+    --text-hero-color-light: #d9d9d9;
     --heading-color-dark: #42446e;
     --heading-color-light: #cccccc;
     --background-dark: #191919;
@@ -48,12 +49,25 @@ button:active, .buttonMoveDown{
     color: var(--text-color-light);
 }
 
+.navbar .container-fluid{
+    padding: 0;
+}
 
 
 .appNavs {
     margin-right: 5rem;
 }
 
+.app-heading{
+    font-size: 4rem;
+    color: var(--heading-color-light);
+    text-align: center;
+}
+.app-subheading{
+    font-size: 3rem;
+    color: var(--text-color-light);
+    text-align: center;
+}
 
 
 @media (max-width: 797px) {
