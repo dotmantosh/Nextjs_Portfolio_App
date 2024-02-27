@@ -1,10 +1,14 @@
-import Image from "next/image";
+import HeroSection from "./Components/HeroSection";
+import TechStack from "./Components/TechStack";
+import Projects from "./Components/Projects";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <h1>New Portfolio Website</h1>
+      <HeroSection/>
+      <TechStack/>
+      <Projects/>
     </main>
   );
 }
