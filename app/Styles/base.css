@@ -21,6 +21,7 @@ body {
     color: var(--text-color-light) !important;
     background-color: var(--background-dark) !important;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
 *,
@@ -69,6 +70,17 @@ button:active, .buttonMoveDown{
     text-align: center;
 }
 
+.tag-success{
+    background-color: #D7FFE0;
+    color: var(--button-color);
+    border-radius: 100px;
+    width: 100px;
+    height: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+}
 
 @media (max-width: 797px) {
     

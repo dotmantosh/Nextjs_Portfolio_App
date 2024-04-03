@@ -1,9 +1,12 @@
-.appNavbar {
+/* .appNavbar {
     position: sticky;
     top: 0;
+} */
+
+.appHeader{
+    position: static;
+    top: 0
 }
-
-
 
 .headerSocials {
     display: flex;
