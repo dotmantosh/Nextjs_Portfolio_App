@@ -7,23 +7,23 @@ function HeroSection() {
     <section className={styles.hero}>
       <Row className='align-items-center'>
         <Col md={6}>
-            <h2>
-                HI,  
-                <br />
-                My name is 
-                <br />
-                <span>Oyedotun O</span>
-                <br />
-                I am a Web Developer
-            </h2>
+          <h2>
+            HI, 🖐✋
+            <br />
+            My name is
+            <br />
+            <span>Oyedotun O</span>
+            <br />
+            I am a Web Developer
+          </h2>
         </Col>
         <Col md={6}>
-            <div className={styles.heroImgContainer}>
+          <div className={styles.heroImgContainer}>
 
-                <div className={styles.heroImg}>
+            <div className={styles.heroImg}>
 
-                </div>
             </div>
+          </div>
         </Col>
       </Row>
     </section>
