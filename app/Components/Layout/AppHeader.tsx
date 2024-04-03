@@ -27,10 +27,10 @@ function AppHeader() {
   const closeMenu = () => setIsOpen(false)
   return (
     <>
-      <div>
+      <div className={styles.app_header}>
         <Navbar expand={'md'} className={styles.appNavbar}>
           <NavbarBrand href="/" className={styles.logo}>{'{{ M P W }}'}</NavbarBrand>
-          <NavbarToggler onClick={toggleMenu} className={styles.customToggler}/>
+          <NavbarToggler onClick={toggleMenu} className={styles.customToggler} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ms-auto appNavs" navbar>
               <NavItem>
@@ -48,7 +48,7 @@ function AppHeader() {
               <NavItem>
                 <NavLink href="/contact">Contact</NavLink>
               </NavItem>
-              
+
             </Nav>
             <div className={`${styles.headerSocials} ${styles.mobileHeaderSocials} button`}>
               <GithubIconSvgLight />
