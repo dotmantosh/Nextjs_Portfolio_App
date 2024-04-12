@@ -5,7 +5,8 @@
   align-items: center;  */
   display: grid;
   place-items: center;
-  margin-top: 10%;
+  margin-top: 5%;
+  margin-bottom: 50px;
 }
 
 .signup_wrapper{
@@ -13,10 +14,11 @@
   height: max-content;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(255,255,255, 0.5), -1px -1px 10px rgba(255,255,255, 0.5) ;
-
+  position: relative;
   padding :30px 25px 40px;
 
   width: 40%;
+
 }
 
 .signup_form{
