@@ -6,13 +6,16 @@ import AppHeader from './AppHeader'
 import AppFooter from './Footer'
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from 'sonner'
+import { usePathname, useRouter } from 'next/navigation'
 
 
 interface LayoutProps {
   children?: ReactNode;
 }
 
+const NoAuth = ["/", "/signup", "/login"]
 const AppLayout: FunctionComponent<LayoutProps> = ({ children }): ReactElement => {
+  const currentPath = usePathname();
   return (
     <>
       <Head>
@@ -20,7 +23,7 @@ const AppLayout: FunctionComponent<LayoutProps> = ({ children }): ReactElement =
       </Head>
       <NextTopLoader
         // color="#E96209"
-        color="#018c0f"
+        color="#13B0F5"
         initialPosition={0.08}
         crawlSpeed={200}
         height={3}
@@ -39,11 +42,20 @@ const AppLayout: FunctionComponent<LayoutProps> = ({ children }): ReactElement =
           unstyled: false,
         }}
       />
-      <Container>
-        <AppHeader />
-        {children}
-        <AppFooter />
-      </Container>
+
+      {
+        NoAuth.includes(currentPath) ?
+          <>
+            <AppHeader />
+            {children}
+          </>
+          :
+          <Container>
+            <AppHeader />
+            {children}
+            <AppFooter />
+          </Container>
+      }
 
     </>
   )
