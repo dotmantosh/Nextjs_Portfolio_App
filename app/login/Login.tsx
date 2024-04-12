@@ -5,6 +5,10 @@ import Link from 'next/link'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { error } from 'console'
+import { signIn } from 'next-auth/react'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { Spinner } from 'reactstrap'
 
 const initialValues = {
   email: '',
@@ -20,12 +24,34 @@ const loginValidation = Yup.object({
 function Login() {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
 
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
     validationSchema: loginValidation,
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      try {
+        setIsLoading(true)
+        const response = await signIn('credentials', {
+          email: values.email,
+          password: values.password,
+          redirect: false
+        })
+        console.log(response);
+        if (response?.error) {
+          throw new Error()
+        }
+        toast.success("login successsful")
+        router.push("/")
+      } catch (error) {
+        toast.error("Something went wrong!")
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
+
     }
   })
   return (
@@ -59,7 +85,9 @@ function Login() {
             </div>
 
 
-            <button type="submit" className={styles.form_button}>Submit</button>
+            <button type="submit" disabled={isLoading} className={styles.form_button}>
+              {isLoading ? <Spinner></Spinner> : 'Submit'}
+            </button>
           </form>
         </div>
       </div>

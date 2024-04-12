@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./globals.css";
 import AppLayout from "./Components/Layout/AppLayout"
+import AuthProvider from "@/context/Provider";
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-          <AppLayout>          
-            {children}  
+        <AuthProvider>
+          <AppLayout>
+            {children}
           </AppLayout>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,12 +1,16 @@
-/* .appNavbar {
-    position: sticky;
-    top: 0;
-} */
+/* 
 
 .appHeader{
     position: static;
     top: 0
 }
+
+
+
+.customToggler {
+    background-color: var(--text-color-light) !important; /* Set color to white 
+}
+*/
 
 .headerSocials {
     display: flex;
@@ -16,8 +20,16 @@
     cursor: pointer;
 }
 
-.customToggler {
-    background-color: var(--text-color-light) !important; /* Set color to white */
+.signup{
+    background-color: var(--secondary-color) !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+
+    border-radius: 5px;
+}
+
+.signup:hover{
+    color: var(--text-color-light) !important;
 }
 
 .logo {
