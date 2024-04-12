@@ -8,6 +8,9 @@ import * as Yup from 'yup'
 import { AuthService } from '../api/authService'
 import { IUserSignUpRequest } from '../interfaces/Iuser'
 import { Spinner } from 'reactstrap'
+import { toast } from 'sonner'
+
+import { useRouter } from 'next/navigation'
 
 const initialValues = {
   username: '',
@@ -25,6 +28,7 @@ const signUpValidation = Yup.object({
 
 function SignUp() {
   const [isLoading, setIsLoading] = useState(false)
+
   const { values, errors, handleBlur, handleChange, handleSubmit, } = useFormik({
     initialValues: initialValues,
     validationSchema: signUpValidation,
@@ -32,14 +36,23 @@ function SignUp() {
       signUpUser(values)
     }
   })
+  const router = useRouter()
 
   const signUpUser = async (values: IUserSignUpRequest) => {
     try {
       setIsLoading(true)
       const res = await AuthService.SignUpUser(values)
       console.log(res.data)
-    } catch (error) {
+      toast.success("SignUp successful")
+      router.push("/login")
+    } catch (error: any) {
       console.log(error)
+      if (error.message) {
+        toast.error(error.message)
+      } else {
+        toast.error("Something went wrong")
+      }
+
     } finally {
       setIsLoading(false)
     }
