@@ -1,0 +1,127 @@
+.workExperience {
+  position: relative;
+}
+.workExperience_container {
+  max-width: 800px;
+}
+
+.workExperience_item {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--text-color-light);
+}
+
+.workExperience_heading {
+  padding-top: 40px;
+  cursor: pointer;
+}
+
+.workExperience_item_left {
+  width: 50%;
+  h4 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 13px;
+  }
+}
+.workExperience_item_right {
+  span {
+    font-size: 10px;
+    font-weight: 600;
+    display: block;
+    width: max-content;
+    padding: 6px 20px;
+    border-radius: 100px;
+    color: var(--button-color);
+    background-color: #d7ffe0;
+    margin-bottom: 12px;
+    margin-left: auto;
+  }
+
+  p {
+    font-size: 12px;
+  }
+}
+
+.workExperience_info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addModalbutton {
+  margin-left: auto;
+  display: block;
+  width: max-content;
+  padding: 5px 20px;
+  font-size: 14px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  //   transform: translateY(40px);
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+
+.ed_modal {
+  &_content {
+    background-color: var(--background-dark);
+  }
+
+  &_header {
+    padding: 20px;
+  }
+  &_body {
+    padding: 20px;
+  }
+  &_footer {
+    padding: 20px;
+  }
+}
+
+.form_group {
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.form_group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form_group input {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 8px 20px;
+  outline: none;
+  border: none;
+}
+
+.form_description_quill {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 70px;
+}
+
+.end_date_non {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 10px;
+  position: absolute;
+  right: 0;
+  top: 110%;
+
+  & > * {
+    width: max-content !important;
+    margin-bottom: 0 !important;
+  }
+}

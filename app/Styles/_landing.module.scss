@@ -30,12 +30,12 @@
         text-decoration: none;
         background-color: var(--secondary-color);
         display: inline-block;
-        color: var(--text-color-light) !important;
+        color: #fff !important;
         padding: 10px 20px;
         border-radius: 10px;
         margin-top: 20px;
         transition: .2s all ease-out;
-        font-weight: 600;
+        font-weight: 400;
 
         &:hover{
           transform: scale(1.05);
