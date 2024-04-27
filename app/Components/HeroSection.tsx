@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
-import styles from '../Styles/_hero.module.css'
+import styles from '../Styles/_hero.module.scss'
 
 function HeroSection() {
   return (
