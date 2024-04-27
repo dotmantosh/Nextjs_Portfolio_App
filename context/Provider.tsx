@@ -8,9 +8,9 @@ interface ProviderProps {
   session?: Session | null | undefined;
 }
 
-const AuthProvider = ({ children, session }: ProviderProps) => {
+const AuthProvider = ({ children }: ProviderProps) => {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider >
       {children}
     </SessionProvider>
   )

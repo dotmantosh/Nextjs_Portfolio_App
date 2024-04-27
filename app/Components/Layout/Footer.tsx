@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../Styles/_footer.module.css'
+import styles from '../../Styles/_footer.module.scss'
 import { GithubIconSvgLight, LinkedinIconSvgLight, TwitterIconSvgLight } from '../SVGs/SVGIcons'
 
 function AppFooter() {

@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import styles from '../Styles/_signup.module.css'
+import styles from '../Styles/_signup.module.scss'
 import Link from 'next/link'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { error } from 'console'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession, getSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { Spinner } from 'reactstrap'
@@ -26,7 +26,8 @@ function Login() {
   const [password, setPassword] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
 
-  const router = useRouter()
+  // const { mutate } = useSession();
+  const router = useRouter();
 
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
@@ -41,17 +42,18 @@ function Login() {
         })
         console.log(response);
         if (response?.error) {
-          throw new Error()
+          toast.error("Invalid Credentials")
         }
-        toast.success("login successsful")
-        router.push("/")
+        toast.success("login successful")
+        // mutate()
+        const session = await getSession();
+        router.push(`/profile/${session?.user?.username}`)
+        setIsLoading(false)
       } catch (error) {
         toast.error("Something went wrong!")
         console.log(error)
-      } finally {
         setIsLoading(false)
       }
-
     }
   })
   return (
@@ -61,7 +63,7 @@ function Login() {
           <div className={styles.signup_top}>
             <h1>Welcome Back 🖐✋, Login</h1>
           </div>
-          <form onSubmit={handleSubmit} className={styles.signup_form}>
+          <form onSubmit={handleSubmit} method='POST' className={styles.signup_form}>
             <p>Don't have an account? , <Link href={"/signup"}>Sign up</Link></p>
 
             <div className={styles.form_group}>

@@ -3,14 +3,25 @@
 
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaClient } from "@prisma/client"
 import { AuthService } from "../../authService"
 import { Adapter } from "next-auth/adapters"
-import { PrismaAdapter } from "@auth/prisma-adapter"
 import axios from "axios"
-// import prisma from "@/prisma"
 
-const prisma = new PrismaClient()
+
+interface User {
+  _id: string;
+  username: string;
+  email: string;
+  role: string;
+  emailVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+  token: string
+}
+
+interface TokenUser {
+  user: User
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -21,72 +32,55 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password", placeholder: "Password" }
       },
       async authorize(credentials) {
-        // try {
-        //   let existingUser;
-        //   // console.log(credentials)
-        //   if (!credentials) {
-        //     return null; // Return null if no credentials are provided
-        //   }
 
-        //   const { user, token } = (await AuthService.LoginUser({ email: credentials.email, password: credentials.password })).data
-        //   // const user = { _id: "1", email: "dotman@email.com" }
-        //   // const token = "sdkfjsdkfs"
-        //   // console.log(user)
-        //   await prisma.$connect()
-        //   // Check if the user exists in the database
-
-        //   existingUser = await prisma.user.findUnique({
-        //     where: { email: user.email }
-        //   })
-        //   console.log(existingUser)
-        //   // If user exists, return the existing user
-        //   if (existingUser) {
-        //     console.log("igote")
-        //     existingUser.accessToken = token;
-        //     existingUser = await prisma.user.update({
-        //       where: { id: existingUser.id },
-        //       data: {
-        //         accessToken: token
-        //         // Add other properties to update here if needed
-        //       }
-        //     });
-        //     return existingUser;
-        //   } else {
-        //     console.log("i got here")
-        //     // If user does not exist, create a new user
-        //     const newUser = await prisma.user.create({
-        //       data: {
-        //         email: user.email,
-        //         userId: user._id,
-        //         accessToken: token
-        //         // You can set other user properties here
-        //       }
-        //     })
-        //     console.log(newUser)
-
-        //     return newUser;
-        //   }
-        // } catch (error) {
-        //   console.log(error)
-        //   // Handle authentication errors
-        //   throw new Error("Authentication failed")
-        // } finally {
-        //   await prisma.$disconnect()
-        // }
-
-        const user = { id: "1", email: credentials?.email, password: credentials?.password }
-        return user
+        try {
+          const user = (await AuthService.LoginUser({ email: credentials?.email, password: credentials?.password })).data
+          if (!user) throw new Error("Invalid credentials")
+          const loggedUser = user.user
+          const token = user.token
+          return { ...loggedUser, token }
+        } catch (error) {
+          console.log(error)
+        }
       }
     })
   ],
-  // callbacks:{
-  //   async jwt({token, user}){
-  //     if (user) token.accessToken = user.token
-  //   },
-  //   async session({session, token}) {
-  //     if(session?.user) session.user.accessToken = user.accessToken
-  //   }
-  // },
+
+  callbacks: {
+    // Create and manage JWTs here
+    jwt: ({ token, user }) => {
+      // console.log("JWT Callback", { token, user });
+
+      if (user) { // Check if user and token properties exist
+        token.user = user
+
+        // token.id = user._id;
+        // token.username = user.username;
+        // token.email = user.user.email;
+        // token.role = user.user.role;
+        // token.emailVerified = user.user.emailVerified;
+        // token.createdAt = user.user.createdAt;
+        // token.updatedAt = user.user.updatedAt;
+        // token.accessToken = user.token; // Include token returned from API
+        // console.log(user)
+      }
+
+      return token;
+    },
+
+    // Create and manage sessions here
+    session: ({ session, token }) => {
+      // console.log("Session Callback", { session, token });
+      const { user } = token
+      return {
+        ...session,
+        user: {
+          ...user as any
+        },
+      };
+    },
+  },
+
   session: {
     strategy: 'jwt',
     maxAge: 23 * 60 * 60,

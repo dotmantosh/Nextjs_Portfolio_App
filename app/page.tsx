@@ -2,7 +2,7 @@
 import HeroSection from "./Components/HeroSection";
 import TechStack from "./Components/TechStack";
 import Projects from "./Components/Projects";
-import styles from "./page.module.css";
+// import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import LandingPage from "./LandingPage";
@@ -23,7 +23,7 @@ export default function Home() {
     }
   }, [router])
   return (
-    <main className={styles.main}>
+    <main >
       <LandingPage />
     </main>
   );

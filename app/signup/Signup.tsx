@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import styles from '../Styles/_signup.module.css'
+import styles from '../Styles/_signup.module.scss'
 import Link from 'next/link'
 
 import { useFormik } from 'formik'
