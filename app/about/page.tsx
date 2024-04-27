@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import styles from '../Styles/_about.module.css'
+import styles from '../Styles/_about.module.scss'
 import { Collapse } from 'reactstrap';
 import { CompanyIconLight, DateIconLight, LocationIconLight } from '../Components/SVGs/SVGIcons';
 
