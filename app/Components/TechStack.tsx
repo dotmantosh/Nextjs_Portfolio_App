@@ -1,13 +1,18 @@
 'use client'
 import React, { useState } from 'react'
 import styles from '../Styles/_techstack.module.scss'
-import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap'
+import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner } from 'reactstrap'
 import Image from 'next/image'
 import HtmlIcon from '../../public/imgs/icons/vscode-icons_file-type-html.png'
 import { InputSearchIcon } from './SVGs/SVGIcons'
+import { ISkill } from '../interfaces/ISkill'
 
-function TechStack() {
-  const [isModalOpen, setIsModalOpen] = useState(true)
+interface ComponentProps {
+  skills?: ISkill[] | undefined
+  isFetchingSkills?: boolean
+}
+function TechStack({ skills, isFetchingSkills }: ComponentProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const toggle = () => setIsModalOpen(!isModalOpen)
   const closeBtn = (
     <button className="app_modal_close" onClick={toggle} type="button">
@@ -34,10 +39,13 @@ function TechStack() {
             <input style={{ paddingLeft: "50px" }} type="text" placeholder='Filter skills' />
           </div>
           <div className={styles.skills_wrapper}>
-            <div className={styles.skills_item}>
-              <input type="checkbox" />
-              <p className='mb-0'>Javascript</p>
-            </div>
+            {isFetchingSkills && <div className='d-flex justify-content-center'><Spinner>Loading...</Spinner> </div>}
+            {skills && skills.map((skill, index) => (
+              <div key={index} className={styles.skills_item}>
+                <input type="checkbox" />
+                <p className='mb-0'>{skill.name}</p>
+              </div>
+            ))}
           </div>
         </ModalBody>
         <ModalFooter className={'app_modal_footer'}>

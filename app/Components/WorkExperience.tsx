@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../Styles/_workExperience.module.scss'
 import { Collapse, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 import { LocationIconLight, CompanyIconLight, DateIconLight } from './SVGs/SVGIcons'
@@ -7,6 +7,12 @@ import * as Yup from 'yup'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
 import { useFormik } from 'formik'
+import { ProfileService } from '../api/profileService'
+import { IWorkExperience } from '../interfaces/IWorkExperience'
+import { toast } from 'sonner'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { EditIcon, DeleteIcon } from './SVGs/SVGIcons'
 
 
 function WorkExperience() {
@@ -15,6 +21,13 @@ function WorkExperience() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [description, setDescription] = useState("")
+  const [isCreatingWorkExperience, setIsCreatingWorkExperience] = useState(false)
+  const [isFetchingWorkExperience, setIsFetchingWorkExperience] = useState(false)
+  const [workExperiences, setWorkExperiences] = useState<IWorkExperience[]>()
+  const [windowReady, setWindowReady] = useState(false)
+
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const toggle = () => setIsModalOpen(!isModalOpen)
 
@@ -24,7 +37,8 @@ function WorkExperience() {
     workType: '',
     startDate: '',
     endDate: '',
-    stillWorking: false
+    description: '',
+    stillWorkingHere: false
   }
 
   const workExperienceValidation = Yup.object().shape({
@@ -40,12 +54,42 @@ function WorkExperience() {
     })
   });
 
+  const handleFetchWorkExperience = async () => {
+    try {
+      setIsFetchingWorkExperience(true)
+      const { data } = await ProfileService.FetchWorkExperience(session?.user.token as string)
+      setWorkExperiences(data)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+      toast.error("Something went wrong fetching WorkExperiences. Try again!")
+    } finally {
+      setIsFetchingWorkExperience(false)
+    }
+  }
+
+  const handleCreateWorkExperience = async (values: IWorkExperience) => {
+    try {
+      setIsCreatingWorkExperience(true)
+      await ProfileService.CreateWorkExperience(values, session?.user.token as string)
+      toast.success("WorkExperience saved successfully")
+      handleFetchWorkExperience()
+      setIsModalOpen(false)
+    } catch (error) {
+      console.log(error)
+      toast.error("Something went wrong fetching WorkExperience. Try again!")
+    } finally {
+      setIsCreatingWorkExperience(false)
+    }
+  }
+
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
     validationSchema: workExperienceValidation,
     onSubmit: async (values) => {
       console.log(values)
-      // console.log(errors)
+      values.description = description
+      handleCreateWorkExperience(values as IWorkExperience)
     }
   })
 
@@ -54,6 +98,14 @@ function WorkExperience() {
       &times;
     </button>
   );
+
+  useEffect(() => {
+    if (!session) return router.push("/login")
+    handleFetchWorkExperience()
+  }, [])
+  useEffect(() => {
+    window && setWindowReady(true)
+  }, [window])
   return (
     <section className={styles.workExperience}>
 
@@ -120,12 +172,25 @@ function WorkExperience() {
                   value={values.endDate}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  disabled={values.stillWorking}
+                  disabled={values.stillWorkingHere}
                 />
                 {errors.endDate && <small>{errors.endDate}</small>}
                 <div className={styles.end_date_non}>
-                  <input type="checkbox" checked={values.stillWorking} name="stillWorking" id="stillWorking" onChange={handleChange} />
+                  <input type="checkbox" checked={values.stillWorkingHere} name="stillWorking" id="stillWorking" onChange={handleChange} />
                   <label htmlFor="stillWorking">Still Working here?</label>
+                </div>
+              </div>
+            </div>
+            <div className={styles.form_group}>
+              <label className='mt-4'>Work Type</label>
+              <div className={styles.programType}>
+                <div className={styles.fullTime}>
+                  <small>Full Time</small>
+                  <input type="radio" name='workType' onChange={handleChange} value={'Full Time'} checked={values.workType === 'Full Time'} />
+                </div>
+                <div className={styles.partTime}>
+                  <small>Part Time</small>
+                  <input type="radio" name='workType' onChange={handleChange} value={'Part Time'} checked={values.workType === 'Part Time'} />
                 </div>
               </div>
             </div>
@@ -133,8 +198,10 @@ function WorkExperience() {
             <div className={styles.form_group}>
               <label>Description</label>
               <div className={styles.form_description_quill}>
-
-                <ReactQuill theme="snow" style={{ height: "100%", }} value={description} onChange={setDescription} />
+                {
+                  windowReady &&
+                  <ReactQuill theme="snow" style={{ height: "100%", }} value={description} onChange={setDescription} />
+                }
               </div>
             </div>
           </ModalBody>
@@ -154,6 +221,10 @@ function WorkExperience() {
 
       <div className={styles.workExperience_container}>
         <div className={styles.workExperience_item}>
+          <div className={styles.overlay_actions}>
+            <EditIcon onClick={() => { }} />
+            <DeleteIcon onClick={() => { }} />
+          </div>
           <div
             className={`d-flex align-items-center justify-content-between ${styles.workExperience_heading}`}
             onClick={() => { setIsOpenFaq1(!isOpenFaq1) }}

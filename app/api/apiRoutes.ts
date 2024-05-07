@@ -5,26 +5,26 @@ export class ApiRoutes {
   static LoginUser = "/user/login";
   static LogoutUser = "/user/logout";
 
-  static FetchSkills = "/skills";
+  static FetchSkills = "/skill/fetch/all";
   static FetchUserTechStack = "/skills";
   static CreateUserTechStack = "/skills";
   static UpdateUserTechStack = "/skills";
   static DeleteUserTechStack = "/skills";
 
-  static FetchEducation = "/education"
-  static CreateEducation = "/education"
-  static UpdateEducation = "/education"
-  static DeleteEducation = "/education"
+  static FetchEducation = "/education/fetch"
+  static CreateEducation = "/education/create"
+  static UpdateEducation = "/education/update"
+  static DeleteEducation = "/education/delete"
 
 
-  static FetchWorkExperience = "/education"
-  static CreateWorkExperience = "/education"
-  static UpdateWorkExperience = "/education"
-  static DeleteWorkExperience = "/education"
+  static FetchWorkExperience = "/work-experience/fetch"
+  static CreateWorkExperience = "/work-experience/create"
+  static UpdateWorkExperience = "/work-experience/update"
+  static DeleteWorkExperience = "/work-experience/delete"
 
-  static FetchProject = "/education"
-  static CreateProject = "/education"
-  static UpdateProject = "/education"
-  static DeleteProject = "/education"
+  static FetchProject = "/project/fetch"
+  static CreateProject = "/project/create"
+  static UpdateProject = "/project/update"
+  static DeleteProject = "/project/delete"
 
 }

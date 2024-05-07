@@ -1,8 +1,11 @@
 import Api from './apiClient'
 import { ApiRoutes } from './apiRoutes'
 import { getAuthorization } from '../helpers/axios'
+import { IEducation } from '../interfaces/IEducation'
+import { IWorkExperience } from '../interfaces/IWorkExperience'
+import { IProject } from '../interfaces/IProject'
 
-export class AuthService {
+export class ProfileService {
   // skills
   static FetchSkills() {
     return Api().get(ApiRoutes.FetchSkills)
@@ -22,49 +25,61 @@ export class AuthService {
     return Api().delete(ApiRoutes.DeleteUserTechStack)
   }
 
-  static FetchEducation() {
-    return Api().get(ApiRoutes.FetchEducation)
+  static FetchEducation(token: string) {
+    const config = getAuthorization(token)
+    return Api().get(ApiRoutes.FetchEducation, config)
   }
 
-  static CreateEducation() {
-    return Api().post(ApiRoutes.CreateEducation)
+  static CreateEducation(data: IEducation, token: string) {
+    const config = getAuthorization(token)
+    return Api().post(ApiRoutes.CreateEducation, data, config)
   }
-  static UpdateEducation() {
-    return Api().put(ApiRoutes.UpdateEducation)
-  }
-
-  static DeleteEducation() {
-    return Api().delete(ApiRoutes.DeleteEducation)
+  static UpdateEducation(data: IEducation, id: string, token: string) {
+    const config = getAuthorization(token)
+    return Api().put(ApiRoutes.UpdateEducation + `/${id}`, data, config)
   }
 
-  static FetchWorkExperience() {
-    return Api().get(ApiRoutes.FetchWorkExperience)
+  static DeleteEducation(id: string, token: string) {
+    const config = getAuthorization(token)
+    return Api().delete(ApiRoutes.DeleteEducation + `/${id}`, config)
   }
 
-  static CreateWorkExperience() {
-    return Api().post(ApiRoutes.CreateWorkExperience)
-  }
-  static UpdateWorkExperience() {
-    return Api().put(ApiRoutes.UpdateWorkExperience)
+  static FetchWorkExperience(token: string) {
+    const config = getAuthorization(token)
+    return Api().get(ApiRoutes.FetchWorkExperience, config)
   }
 
-  static DeleteWorkExperience() {
-    return Api().delete(ApiRoutes.DeleteWorkExperience)
+  static CreateWorkExperience(data: IWorkExperience, token: string) {
+    const config = getAuthorization(token)
+    return Api().post(ApiRoutes.CreateWorkExperience, data, config)
+  }
+  static UpdateWorkExperience(data: IWorkExperience, id: string, token: string) {
+    const config = getAuthorization(token)
+    return Api().put(ApiRoutes.UpdateWorkExperience + `/${id}`, data, config)
   }
 
-  static FetchProject() {
-    return Api().get(ApiRoutes.FetchProject)
+  static DeleteWorkExperience(id: string, token: string) {
+    const config = getAuthorization(token)
+    return Api().delete(ApiRoutes.DeleteWorkExperience + `/${id}`, config)
   }
 
-  static CreateProject() {
-    return Api().post(ApiRoutes.CreateProject)
-  }
-  static UpdateProject() {
-    return Api().put(ApiRoutes.UpdateProject)
+  static FetchProject(token: string) {
+    const config = getAuthorization(token)
+    return Api().get(ApiRoutes.FetchProject, config)
   }
 
-  static DeleteProject() {
-    return Api().delete(ApiRoutes.DeleteProject)
+  static CreateProject(data: IProject, token: string) {
+    const config = getAuthorization(token)
+    return Api().post(ApiRoutes.CreateProject, data, config)
+  }
+  static UpdateProject(data: IProject, id: string, token: string) {
+    const config = getAuthorization(token)
+    return Api().put(ApiRoutes.UpdateProject + `/${id}`, data, config)
+  }
+
+  static DeleteProject(id: string, token: string) {
+    const config = getAuthorization(token)
+    return Api().delete(ApiRoutes.DeleteProject + `/${id}`, config)
   }
 
 

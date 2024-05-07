@@ -9,12 +9,17 @@ import Image from 'next/image'
 function Account() {
   const [isAccountEdit, setIsAccountEdit] = useState(false)
   const [isPasswordEdit, setIsPasswordEdit] = useState(false)
+  const [photo, setPhoto] = useState<string>()
+  const [photoErrorMsg, setPhotoErrorMsg] = useState<string>()
+  const [imgUrl, setImgUrl] = useState<string>()
 
   const formOne = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
       phoneNumber: '',
+      state: '',
+      country: '',
       about: ''
     },
     validationSchema: Yup.object({
@@ -46,6 +51,62 @@ function Account() {
     },
   });
 
+  const handleFileUpload = (e: any) => {
+    // Get the selected file
+    const selectedFile: File = e.target.files[0];
+    console.log('File: ', selectedFile)
+    // If a valid file was selected...
+    if (
+      selectedFile.type === 'image/jpg' ||
+      selectedFile.type === 'image/png' ||
+      selectedFile.type === 'image/jpeg' ||
+      selectedFile.type === 'image/webp'
+    ) {
+      // Unset validation message
+      setPhotoErrorMsg(undefined);
+
+      const file = e.target.files[0]; // Get the selected file
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const base64URL: string = e.target?.result as string; // This is the base64 URL of the image
+
+          if (base64URL) {
+            // Extract only the base64 string (remove "data:image/jpeg;base64," prefix)
+            const base64String = base64URL.split(',')[1];
+
+            // console.log('base64URL: ', base64String);
+
+            // Update form values
+            setPhoto(
+              base64String,
+            );
+          }
+        };
+
+        // Read the file as a data URL (base64-encoded)
+        reader.readAsDataURL(file);
+      }
+    }
+    // Otherwise...
+    else {
+      // Set appropriate validation message
+      setPhotoErrorMsg('Please select a valid photo');
+
+      // Exit this method
+      return;
+    }
+
+    // Set the image url
+    const imageURL = URL.createObjectURL(selectedFile);
+
+    // Update the image url state
+    setImgUrl(imageURL);
+    console.log(imgUrl)
+  };
+
   return (
     <section>
       <h3 className='app-heading'>Account</h3>
@@ -54,12 +115,13 @@ function Account() {
         <div className={styles.account_top}>
           <div className={styles.account_identity}>
             <div className={styles.account_profile_pic}>
-              <Image src={AddPhotoIcon} alt='img' className='add_image_icon' />
+              {imgUrl ? <Image src={imgUrl} alt='img' className={styles.imgUrl} fill /> : <Image src={AddPhotoIcon} alt='img' className='add_image_icon' />}
+
             </div>
             <div className={styles.account_name}>
               <h4>Omotosho Oyedotun</h4>
               <label>
-                <input type="file" />
+                <input type="file" onChange={handleFileUpload} />
                 Change Profile Picture
               </label>
             </div>
@@ -107,6 +169,29 @@ function Account() {
                   placeholder='Enter Phone Number'
                   readOnly={!isAccountEdit}
                   value={formOne.values.phoneNumber}
+                  onChange={formOne.handleChange}
+                  onBlur={formOne.handleBlur}
+                />
+
+              </div>
+            </div>
+            <div className='d-flex gap-5'>
+              <div className={styles.form_group}>
+                <label>State</label>
+                <input type="text" name="state"
+                  placeholder='Enter State' readOnly={!isAccountEdit}
+                  value={formOne.values.state}
+                  onChange={formOne.handleChange}
+                  onBlur={formOne.handleBlur} />
+              </div>
+              <div className={styles.form_group}>
+                <label>Phone Number</label>
+                <input
+                  type="text"
+                  name="Country"
+                  placeholder='Enter Country'
+                  readOnly={!isAccountEdit}
+                  value={formOne.values.country}
                   onChange={formOne.handleChange}
                   onBlur={formOne.handleBlur}
                 />

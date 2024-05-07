@@ -2,11 +2,15 @@ import React from 'react'
 import styles from '../../Styles/_projects.module.scss'
 import Image from 'next/image'
 import Project1 from '../../../public/imgs/card/project1.png'
-import { LinkIconLight, GithubIconSvgLight } from '../SVGs/SVGIcons'
+import { LinkIconLight, GithubIconSvgLight, EditIcon, DeleteIcon } from '../SVGs/SVGIcons'
 
 function ProjectCard() {
     return (
         <div className={styles.projectCard}>
+            <div className={styles.overlay_actions}>
+                <EditIcon onClick={() => { }} />
+                <DeleteIcon onClick={() => { }} />
+            </div>
             <div className={styles.projectCardImgContainer}>
                 <Image src={Project1} alt="project" />
             </div>

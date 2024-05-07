@@ -13,12 +13,40 @@
   border-radius: 20px;
   margin-bottom: 2.5rem;
   transition: 0.2s ease-out;
+  position: relative;
+}
+
+.overlay_actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 2;
+  & > * {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .projectCard:hover {
   transform: scale(1.03);
   box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.2);
   cursor: pointer;
+
+  .overlay_actions {
+    opacity: 1;
+  }
+
+  .projectCard::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
 }
 
 .projectCardImgContainer {
@@ -136,6 +164,11 @@
       left: -9999px;
     }
   }
+
+  .imgUrl {
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .add_image_img {
@@ -151,5 +184,10 @@
 
   .add_image_icon {
     object-fit: contain;
+  }
+
+  .imgUrl {
+    width: 100%;
+    object-fit: cover;
   }
 }

@@ -47,7 +47,7 @@ function Login() {
         toast.success("login successful")
         // mutate()
         const session = await getSession();
-        router.push(`/profile/${session?.user?.username}`)
+        router.push(`/profile`)
         setIsLoading(false)
       } catch (error) {
         toast.error("Something went wrong!")
