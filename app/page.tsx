@@ -1,7 +1,7 @@
 'use client'
 import HeroSection from "./Components/HeroSection";
-import TechStack from "./Components/TechStack";
-import Projects from "./Components/Projects";
+import TechStack from "./profile/skills/TechStack";
+import Projects from "./profile/project/Projects";
 // import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -16,12 +16,7 @@ export default function Home() {
   const router = useRouter()
   const { data: session } = useSession()
 
-  useEffect(() => {
-    router && console.log(session)
-    if (!isLanding) {
-      router.push('/profile/dotmantosh')
-    }
-  }, [router])
+
   return (
     <main >
       <LandingPage />
