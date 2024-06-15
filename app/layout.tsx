@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import 'react-quill/dist/quill.snow.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./globals.css";
 import AppLayout from "./Components/Layout/AppLayout"
