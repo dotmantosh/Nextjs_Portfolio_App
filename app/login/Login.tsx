@@ -45,6 +45,7 @@ function Login() {
         // console.log(response);
         if (response?.error) {
           toast.error("Invalid Credentials")
+          setIsLoading(false)
           return
         }
         toast.success("login successful")
@@ -54,7 +55,9 @@ function Login() {
         setIsLoading(false)
       } catch (error: any) {
         if (error.response.status === 400) {
-          return toast.error("Invalid credentials")
+          toast.error("Invalid credentials")
+          setIsLoading(false)
+          return
         }
         toast.error("Something went wrong!")
         console.log(error)
