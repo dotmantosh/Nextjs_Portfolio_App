@@ -2,7 +2,7 @@
 import React, { useState, Dispatch, SetStateAction } from 'react'
 import styles from "../../Styles/_profile.module.scss"
 import Sidebar from '../Sidebar'
-import TechStack from '@/app/profile/skills/TechStack'
+import TechStackPage from '@/app/profile/skills/TechStack'
 
 
 const page = () => {
@@ -12,7 +12,7 @@ const page = () => {
       <div className={styles.profile_wrapper}>
         <Sidebar />
 
-        <TechStack />
+        <TechStackPage />
       </div>
     </div>
   )

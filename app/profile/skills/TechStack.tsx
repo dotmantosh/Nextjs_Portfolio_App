@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import styles from '../../Styles/_techstack.module.scss'
 import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner } from 'reactstrap'
 import Image from 'next/image'
@@ -243,4 +243,16 @@ function TechStack() {
   )
 }
 
-export default TechStack
+export default function TechStackPage() {
+
+  return (
+
+    <Suspense fallback={
+      <div className='d-flex justify-content-center align-items-center'>
+        <Spinner>Loading...</Spinner>
+      </div>
+    }>
+      <TechStack />
+    </Suspense>
+  )
+}
