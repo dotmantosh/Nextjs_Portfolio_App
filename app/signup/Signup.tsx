@@ -42,13 +42,15 @@ function SignUp() {
     try {
       setIsLoading(true)
       const res = await AuthService.SignUpUser(values)
-      console.log(res.data)
+      // console.log(res.data)
       toast.success("SignUp successful")
       router.push("/login")
     } catch (error: any) {
       console.log(error)
       if (error.message) {
         toast.error(error.message)
+      } else if (error.response?.status === 400) {
+        toast.error(error.response?.data?.message)
       } else {
         toast.error("Something went wrong")
       }

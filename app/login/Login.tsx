@@ -45,6 +45,7 @@ function Login() {
         // console.log(response);
         if (response?.error) {
           toast.error("Invalid Credentials")
+          setIsLoading(false)
           return
         }
         toast.success("login successful")
@@ -52,7 +53,12 @@ function Login() {
         // const session = await getSession();
         router.push(`/profile/skills`)
         setIsLoading(false)
-      } catch (error) {
+      } catch (error: any) {
+        if (error.response.status === 400) {
+          toast.error("Invalid credentials")
+          setIsLoading(false)
+          return
+        }
         toast.error("Something went wrong!")
         console.log(error)
         setIsLoading(false)
