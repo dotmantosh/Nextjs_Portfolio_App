@@ -52,7 +52,10 @@ function Login() {
         // const session = await getSession();
         router.push(`/profile/skills`)
         setIsLoading(false)
-      } catch (error) {
+      } catch (error: any) {
+        if (error.response.status === 400) {
+          return toast.error("Invalid credentials")
+        }
         toast.error("Something went wrong!")
         console.log(error)
         setIsLoading(false)
