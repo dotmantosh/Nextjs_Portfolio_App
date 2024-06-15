@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEvent, MouseEventHandler, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, MouseEventHandler, Suspense, useEffect, useRef, useState } from 'react'
 import styles from '../../Styles/_workExperience.module.scss'
 import { Collapse, Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
 import { LocationIconLight, CompanyIconLight, DateIconLight, DeleteIcon, EditIcon } from '../../Components/SVGs/SVGIcons'
@@ -230,4 +230,16 @@ function Education() {
   )
 }
 
-export default Education
+export default function EducationPage() {
+
+  return (
+
+    <Suspense fallback={
+      <div className='d-flex justify-content-center align-items-center'>
+        <Spinner>Loading...</Spinner>
+      </div>
+    }>
+      <Education />
+    </Suspense>
+  )
+}

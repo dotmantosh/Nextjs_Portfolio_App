@@ -2,7 +2,7 @@
 import React, { useState, Dispatch, SetStateAction } from 'react'
 import styles from "../../Styles/_profile.module.scss"
 import Sidebar from '../Sidebar'
-import WorkExperience from '@/app/profile/work-experience/WorkExperience'
+import WorkExperiencePage from '@/app/profile/work-experience/WorkExperience'
 
 
 const page = () => {
@@ -12,7 +12,7 @@ const page = () => {
       <div className={styles.profile_wrapper}>
         <Sidebar />
 
-        <WorkExperience />
+        <WorkExperiencePage />
       </div>
     </div>
   )

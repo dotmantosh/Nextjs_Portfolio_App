@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useMemo, useRef } from 'react'
+import React, { useEffect, useState, useMemo, useRef, Suspense } from 'react'
 import styles from '../../Styles/_projects.module.scss'
 import { Col, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner } from 'reactstrap'
 import ProjectCard from '../../Components/Cards/ProjectCard'
@@ -224,4 +224,16 @@ function Projects() {
   )
 }
 
-export default Projects
+export default function ProjectsPage() {
+
+  return (
+
+    <Suspense fallback={
+      <div className='d-flex justify-content-center align-items-center'>
+        <Spinner>Loading...</Spinner>
+      </div>
+    }>
+      <Projects />
+    </Suspense>
+  )
+}
