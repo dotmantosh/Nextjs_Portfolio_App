@@ -2,7 +2,13 @@
   position: relative;
 }
 .workExperience_container {
+  margin-top: 15rem;
   max-width: 800px;
+}
+.workExperience_container_public {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 10rem;
 }
 
 .workExperience_item {
@@ -33,7 +39,7 @@
 }
 
 .workExperience_heading {
-  padding-top: 40px;
+  padding-top: 20px;
   cursor: pointer;
 }
 
@@ -84,7 +90,7 @@
   outline: none;
   //   transform: translateY(40px);
   position: absolute;
-  top: 20px;
+  top: 5px;
   right: 0;
 }
 
@@ -173,4 +179,15 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   /* display: none; */
+}
+
+@media screen and (max-width: 767px) {
+  .addModalbutton {
+    position: relative;
+    width: 100%;
+  }
+
+  .workExperience_container {
+    margin-top: 20px;
+  }
 }

@@ -66,10 +66,10 @@
   padding-bottom: 30px;
   // margin-top: 30px;
 
-  // h6 {
-  //   font-size: 2.4rem;
-  //   margin-bottom: 20px;
-  // }
+  h6 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+  }
 }
 
 .form_group {
@@ -91,6 +91,16 @@
   padding: 8px 20px;
   outline: none;
   border: none;
+}
+
+.account_middle {
+  border-bottom: 1px solid var(--text-color-light);
+  padding-bottom: 30px;
+  margin-top: 60px;
+  h6 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+  }
 }
 
 .account_bottom {
@@ -136,5 +146,38 @@
     padding: 8px 20px;
     border: none;
     outline: none;
+  }
+}
+
+.changeResume {
+  background-color: var(--primary-color) !important;
+}
+
+.removeResume {
+  background-color: var(--secondary-color) !important;
+}
+
+.uploadResume {
+  background-color: #e96209 !important;
+}
+
+.socialForm {
+  margin-top: 40px;
+}
+
+.form_group_icon {
+  svg {
+    transform: translateX(-45px);
+
+    cursor: pointer;
+  }
+  svg:hover {
+    transform: translateX(-45px) translateY(2px);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .account_wrapper {
+    width: 100%;
   }
 }

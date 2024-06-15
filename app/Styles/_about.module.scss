@@ -1,32 +1,32 @@
-.about{
+.about {
   max-width: 700px;
 }
-.about_top{
+.about_top {
   margin-top: 10rem;
 }
-.about_heading{
+.about_heading {
   text-align: left;
 }
 
-.about_desc{
+.about_desc {
   margin-top: 3rem;
   font-size: 18px;
 }
 
-.work_experience{
+.work_experience {
   margin-top: 10rem;
 }
 
-.work_experience_item{
+.work_experience_item {
   margin-bottom: 50px;
   cursor: pointer;
 }
 
-.work_experience_container{
+.work_experience_container {
   margin-top: 3rem;
 }
 
-.work_experience_top{
+.work_experience_top {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #a7a7a7;
@@ -34,46 +34,47 @@
   padding-bottom: 10px;
 }
 
-.work_experience_top_left{
+.work_experience_top_left {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.work_experience_top_left h6{
+.work_experience_top_left h6 {
   font-weight: 400;
   font-size: 20px;
 }
 
-.work_experience_top_detail{
+.work_experience_top_detail {
   display: flex;
   align-items: center;
   gap: 30px;
 }
 
-.work_experience_company, .work_experience_location,
-.work_experience_date{
+.work_experience_company,
+.work_experience_location,
+.work_experience_date {
   display: flex;
-  align-items: center ;
+  align-items: center;
   gap: 10px;
 }
 
-.work_experience_top_right{
+.work_experience_top_right {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 15px;
 }
 
-.work_experience_body{
+.work_experience_body {
   padding-top: 20px;
 }
 
-.work_experience_detail{
+.work_experience_detail {
   margin-top: 10px;
   margin-left: 20px;
 }
 
-.work_experience_detail_item{
+.work_experience_detail_item {
   margin-bottom: 10px;
 }
