@@ -5,6 +5,6 @@ import { redirect } from "next/navigation";
 export default async function Page() {
 
   const session = await getServerSession(authOptions)
-  if (session) redirect(`/profile/${session?.user?.username}`)
+  // if (session) redirect(`/profile/${session?.user?.username}`)
   return (<Login />)
 }
