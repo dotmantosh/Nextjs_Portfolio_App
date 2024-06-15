@@ -4,19 +4,34 @@
 .stackContainer {
   margin-top: 10rem;
 }
-
-.stackIconWrapper {
-  max-width: 12rem;
-  height: 12rem;
-  margin: 0 auto;
-  cursor: pointer;
-  margin-bottom: 20px;
-  position: relative;
+.stackContainerPublic {
+  margin-top: 5rem;
 }
 
-.stackIconWrapper img {
+.stackIconWrapper {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.stackIconImgWrapper {
+  margin: 0 auto;
+  position: relative;
+  max-width: 12rem;
+  height: 12rem;
+  cursor: pointer;
+}
+
+.stackIconImgWrapper img {
   object-fit: cover;
   width: 100%;
+}
+
+.stackIconName {
+  opacity: 0;
+}
+
+.stackIconWrapper:hover .stackIconName {
+  opacity: 1 !important;
 }
 
 .addModalbutton {
@@ -31,7 +46,7 @@
   outline: none;
   //   transform: translateY(40px);
   position: absolute;
-  top: 20px;
+  top: 5px;
   right: 0;
 }
 
@@ -64,7 +79,7 @@
 }
 
 .skills_wrapper {
-  height: 300px;
+  height: 320px;
   //   padding-left: 20px;
   overflow-y: auto;
 }
@@ -80,5 +95,12 @@
   &:hover {
     background-color: rgba(88, 88, 88, 0.4);
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .addModalbutton {
+    position: relative;
+    width: 100%;
   }
 }

@@ -50,11 +50,11 @@ const AppLayout: FunctionComponent<LayoutProps> = ({ children }): ReactElement =
             {children}
           </>
           :
-          currentPath === "/profile" ? <> {children} </> :
+          currentPath.startsWith("/profile") ? <> {children} </> :
             <Container>
               <AppHeader />
               {children}
-              <AppFooter />
+              {/* <AppFooter /> */}
             </Container>
       }
 

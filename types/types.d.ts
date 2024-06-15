@@ -10,6 +10,7 @@ declare module "next-auth" {
       name: string | null | undefined;
       email: string | null | undefined;
       image: string | null | undefined;
+      imageUrl: string | null | undefined;
       username: string | null | undefined;
       idToken: string | null | undefined;
       token: string | null | undefined;

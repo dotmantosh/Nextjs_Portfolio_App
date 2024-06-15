@@ -39,27 +39,18 @@ function AppHeader() {
   const NoAuth = ["/", "/signup", "/login"]
   const { data: session } = useSession()
 
-  const handleLogout = async () => {
-    try {
-      await AuthService.LogoutUser(session?.user?.token as string)
-      signOut()
-      router.push("/")
-    } catch (error) {
-      console.log(error)
-    }
-  }
   return (
     <>
       <div className={`container ${styles.app_header}`}>
         <Navbar expand={'md'} className={styles.appNavbar}>
-          <NavbarBrand href="/" className={styles.logo}>{'{{ M P W }}'}</NavbarBrand>
+          <NavbarBrand href="/" className={styles.logo}>{'<Devsfolio/>'}</NavbarBrand>
           <NavbarToggler onClick={toggleMenu} className={styles.customToggler} />
           <Collapse isOpen={isOpen} navbar>
             {
-              !session ?
-                <NonAuthenticatedNav />
-                :
-                <AuthenticatedNav />
+              // !session ?
+              //   <NonAuthenticatedNav />
+              //   :
+              <AuthenticatedNav />
             }
           </Collapse>
         </Navbar>

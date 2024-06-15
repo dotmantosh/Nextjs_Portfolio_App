@@ -13,6 +13,7 @@ interface User {
   username: string;
   email: string;
   role: string;
+  imageUrl: string;
   emailVerified: boolean;
   createdAt: string;
   updatedAt: string;

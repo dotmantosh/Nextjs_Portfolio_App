@@ -15,6 +15,7 @@
 
 html {
   font-size: 62.5% !important;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -62,7 +63,8 @@ button:active,
 }
 
 .appNavs {
-  margin-right: 5rem;
+  /* margin-right: 7rem; */
+  list-style: none;
 }
 
 .app-heading {
@@ -86,6 +88,20 @@ button:active,
   font-weight: 600;
   display: grid;
   place-items: center;
+}
+
+.show-more-button {
+  display: block;
+  width: max-content;
+  margin-left: auto;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--text-hero-color-light);
+  background-color: var(--secondary-color);
 }
 
 .app_modal {
@@ -141,5 +157,37 @@ button:active,
   outline: none;
 }
 
-@media (max-width: 797px) {
+.flex-2 {
+  width: 50%;
 }
+
+.feedback-empty {
+  font-size: 2rem;
+  margin-bottom: 10rem;
+}
+
+.feedback-empty span {
+  color: var(--primary-color);
+  cursor: pointer;
+  /* display: inline-block; */
+}
+/* .feedback-empty span:hover {
+  transform: translate(1.02);
+} */
+
+.form-error-feedback {
+  color: red;
+  font-size: 12px;
+}
+
+@media (max-width: 797px) {
+  .flex-1-mobile {
+    width: 100%;
+  }
+}
+/* @media (max-width: 575px) {
+  .app-heading,
+  .app-subheading {
+    text-align: center !important;
+  }
+} */
