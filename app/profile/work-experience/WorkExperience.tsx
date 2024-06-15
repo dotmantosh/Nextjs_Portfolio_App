@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import styles from '../../Styles/_workExperience.module.scss'
 import { Collapse, Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
 import { LocationIconLight, CompanyIconLight, DateIconLight } from '../../Components/SVGs/SVGIcons'
@@ -264,4 +264,16 @@ function WorkExperience() {
   )
 }
 
-export default WorkExperience
+export default function WorkExperiencePage() {
+
+  return (
+
+    <Suspense fallback={
+      <div className='d-flex justify-content-center align-items-center'>
+        <Spinner>Loading...</Spinner>
+      </div>
+    }>
+      <WorkExperience />
+    </Suspense>
+  )
+}
