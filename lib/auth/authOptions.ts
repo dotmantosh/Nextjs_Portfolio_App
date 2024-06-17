@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
           const token = user.token
           return { ...loggedUser, token }
         } catch (error) {
-          console.log(error)
+          // console.log(error)
         }
       }
     })
