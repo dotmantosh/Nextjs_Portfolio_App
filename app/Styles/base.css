@@ -52,6 +52,7 @@ button:active,
 
 .navbar-nav .nav-link {
   color: var(--text-color-light);
+  cursor: pointer !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -178,6 +179,19 @@ button:active,
 .form-error-feedback {
   color: red;
   font-size: 12px;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+.gap-30 {
+  gap: 30px;
+}
+.gap-40 {
+  gap: 40px;
+}
+.gap-50 {
+  gap: 50px;
 }
 
 @media (max-width: 797px) {

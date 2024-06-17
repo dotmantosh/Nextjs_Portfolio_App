@@ -12,7 +12,7 @@ import { toast } from 'sonner'
 import { IProfile } from '@/app/interfaces/IProfile'
 import { Input, Spinner, FormGroup } from 'reactstrap'
 import DeleteModal from '@/app/Components/Modals/DeleteModal'
-import { CopyIcon } from '@/app/Components/SVGs/SVGIcons'
+import { CopyIcon, InfoIcon } from '@/app/Components/SVGs/SVGIcons'
 
 function Account() {
   const [isAccountEdit, setIsAccountEdit] = useState(false)
@@ -681,24 +681,25 @@ function Account() {
         <form onSubmit={formFour.handleSubmit} className={styles.account_bottom}>
           <div >
             <h6>Settings</h6>
-            <FormGroup switch className={styles.form_group}>
-              <Input type="switch" role="switch" name="allowResumeDownload" onChange={formFour.handleChange} onBlur={formFour.handleBlur} checked={formFour.values.allowResumeDownload} disabled={!isSettingsEdit} />
-              <label className="ms-4">Allow Resume Download</label>
-            </FormGroup>
+            <div className='d-flex align-items-center gap-40 mb-2'>
 
-            <div className='d-flex align-items-center gap-5'>
-              <FormGroup switch className={styles.form_group}>
+              <FormGroup switch className={`d-flex align-items-center gap-4 ${styles.form_group}`}>
+                <label className='me-4 mb-0'>Allow Public Url</label>
                 <Input type="switch" role="switch" name="allowPublicUrl" onChange={formFour.handleChange} onBlur={formFour.handleBlur} checked={formFour.values.allowPublicUrl} disabled={!isSettingsEdit} className={styles.input_switch} />
-                <label className='ms-4'>Allow Public Url</label>
               </FormGroup>
+
               {formFour.values.allowPublicUrl &&
-                <div className={`d-flex align-items-center gap-4 ${styles.form_group} ${styles.form_group_icon}`}>
+                <div className={` ${styles.form_group} ${styles.form_group_icon}`}>
                   <input type="text" readOnly value={`https://${hostname}/public/${session?.user.username}`} className={styles.input_copy_icon} />
                   <CopyIcon onClick={handleCopyClick} />
                 </div>
               }
             </div>
 
+            <FormGroup switch className={` d-flex align-items-center gap-4 ${styles.form_group}`}>
+              <label className="me-4 mb-0">Allow Resume Download</label>
+              <Input type="switch" role="switch" name="allowResumeDownload" onChange={formFour.handleChange} onBlur={formFour.handleBlur} checked={formFour.values.allowResumeDownload} disabled={!isSettingsEdit} />
+            </FormGroup>
           </div>
           {
             isSettingsEdit ?

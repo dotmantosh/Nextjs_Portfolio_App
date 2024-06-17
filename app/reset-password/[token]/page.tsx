@@ -86,7 +86,7 @@ const ResetPassword = () => {
                       onChange={handleChange}
                       onInput={handleChange}
                     />
-                    {errors.password && <small>{errors.password}</small>}
+                    {errors.password && <small className='form-error-feedback'>{errors.password}</small>}
                   </div>
                   <div className={styles.form_group}>
                     <label>Confirm Password</label>
@@ -97,7 +97,7 @@ const ResetPassword = () => {
                       onChange={handleChange}
                       onInput={handleChange}
                     />
-                    {errors.confirmPassword && <small>{errors.confirmPassword}</small>}
+                    {errors.confirmPassword && <small className='form-error-feedback'>{errors.confirmPassword}</small>}
                   </div>
                   <button type='submit'>{isChangingPassword ? <Spinner>Loading...</Spinner> : "Submit"}</button>
                 </form>

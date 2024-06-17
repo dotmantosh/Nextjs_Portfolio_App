@@ -42,10 +42,11 @@ function Login() {
           password: values.password,
           redirect: false
         })
+        setIsLoading(false)
         // console.log(response);
         if (response?.error) {
           toast.error("Invalid Credentials")
-          setIsLoading(false)
+
           return
         }
         toast.success("login successful")

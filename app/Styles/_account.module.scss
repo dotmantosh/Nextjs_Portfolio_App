@@ -109,6 +109,19 @@
     font-size: 2.4rem;
     margin-bottom: 20px;
   }
+
+  .form_group {
+    padding-left: 0 !important;
+    flex-grow: 0;
+
+    label {
+      width: 172px;
+    }
+    input {
+      margin-left: -0.5rem !important;
+      margin-top: 0;
+    }
+  }
 }
 
 .edit_btn {
@@ -166,13 +179,22 @@
 }
 
 .form_group_icon {
+  position: relative;
+  flex-grow: 1 !important;
+  input {
+    padding-right: 32px;
+  }
   svg {
-    transform: translateX(-45px);
-
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
+    z-index: 1;
   }
   svg:hover {
-    transform: translateX(-45px) translateY(2px);
+    fill: var(--secondary-color) !important;
+    transform: translateY(-40%);
   }
 }
 
