@@ -99,7 +99,7 @@ function LandingPage() {
           <div className={styles.contact_left}>
             <h1>Get in touch with us</h1>
             <p>
-              We're here to listen you with suggestions, feedback, or inquiries about our platform, feel free to reach out to us. <br /> <br /> Our team is dedicated to providing you with the best service you need. Simply fill out the form below or use the contact details provided, and we'll get back to you as soon as possible.
+              We're here to listen your suggestions, feedback, or inquiries about our platform, feel free to reach out to us. <br /> <br /> Our team is dedicated to providing you with the best service you need. Simply fill out the form or use the contact details provided, and we'll get back to you as soon as possible.
             </p>
           </div>
           <div className={styles.contact_right}>
