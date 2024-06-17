@@ -21,6 +21,7 @@ const AuthenticatedNav = () => {
   const { username } = useParams()
 
   // console.log(session)
+  const showNavArr = ["/"]
 
   const toggleNav = () => { setIsNavOptionsOpen(!isNavOptionsOpen) }
 
@@ -67,7 +68,7 @@ const AuthenticatedNav = () => {
     <>
       <Nav className="ms-auto appNavs" navbar>
         {
-          !pathname.startsWith("/public") &&
+          !pathname.startsWith("/public") && showNavArr.includes(pathname) &&
           <div className={styles.home_header}>
             <NavItem>
               <NavLink onClick={() => { scrollToTopOfSection("home") }}>Home</NavLink>
