@@ -361,9 +361,16 @@ function Account() {
       const response = (await ProfileService.FetchUserProfile(session?.user.token as string))
       const data = response.data
       if (data) {
-        formOne.resetForm({ values: data })
-        formTwo.resetForm({ values: data })
-        formFour.resetForm({ values: data })
+        // Only reset form if data is different from current form values
+        if (JSON.stringify(formOne.values) !== JSON.stringify(data)) {
+          formOne.resetForm({ values: data });
+        }
+        if (JSON.stringify(formTwo.values) !== JSON.stringify(data)) {
+          formTwo.resetForm({ values: data });
+        }
+        if (JSON.stringify(formFour.values) !== JSON.stringify(data)) {
+          formFour.resetForm({ values: data });
+        }
       }
       // console.log(data)
       setProfile(data)
