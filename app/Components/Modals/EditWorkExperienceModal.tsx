@@ -159,7 +159,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                   onBlur={handleBlur}
                   onChange={handleChange}
                 />
-                {errors.title && <small>{errors.title}</small>}
+                {errors.title && <small className='form-error-feedback'>{errors.title}</small>}
               </div>
               <div className={styles.form_group}>
                 <label>Company / Organization</label>
@@ -169,7 +169,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                   onBlur={handleBlur}
                   onChange={handleChange}
                 />
-                {errors.company && <small>{errors.company}</small>}
+                {errors.company && <small className='form-error-feedback'>{errors.company}</small>}
               </div>
               <div className={styles.form_group}>
                 <label>Skills Used</label>
@@ -197,7 +197,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
-                  {errors.state && <small>{errors.state}</small>}
+                  {errors.state && <small className='form-error-feedback'>{errors.state}</small>}
                 </div>
                 <div className={`position-relative ${styles.form_group}`}>
                   <label>
@@ -209,7 +209,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
-                  {errors.country && <small>{errors.country}</small>}
+                  {errors.country && <small className='form-error-feedback'>{errors.country}</small>}
 
                 </div>
               </div>
@@ -226,7 +226,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                     styles={customStyle}
                     placeholder=""
                   />
-                  {errors.workType && <small>{errors.workType}</small>}
+                  {errors.workType && <small className='form-error-feedback'>{errors.workType}</small>}
                 </div>
                 <div className={`position-relative flex-2 ${styles.form_group}`}>
                   <label>
@@ -241,7 +241,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                     styles={customStyle}
                     placeholder=""
                   />
-                  {errors.employmentType && <small>{errors.employmentType}</small>}
+                  {errors.employmentType && <small className='form-error-feedback'>{errors.employmentType}</small>}
 
                 </div>
               </div>
@@ -255,7 +255,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
-                  {errors.startDate && <small>{errors.startDate}</small>}
+                  {errors.startDate && <small className='form-error-feedback'>{errors.startDate}</small>}
                 </div>
                 <div className={`position-relative ${styles.form_group}`}>
                   <label>
@@ -268,7 +268,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                     onChange={handleChange}
                     disabled={values.stillWorkingHere}
                   />
-                  {errors.endDate && <small>{errors.endDate}</small>}
+                  {errors.endDate && <small className='form-error-feedback'>{errors.endDate}</small>}
                   <div className={styles.end_date_non}>
                     <input type="checkbox" checked={values.stillWorkingHere} name="stillWorkingHere" id="stillWorkingHere" onChange={handleChangeStillWorkingHere} />
                     <label htmlFor="stillWorkingHere">Still Working here?</label>
