@@ -79,7 +79,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
               onBlur={handleBlur}
               onChange={handleChange}
             />
-            {errors.qualification && <small>{errors.qualification}</small>}
+            {errors.qualification && <small className='form-error-feedback'>{errors.qualification}</small>}
           </div>
           <div className={styles.form_group}>
             <label>School</label>
@@ -89,7 +89,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
               onBlur={handleBlur}
               onChange={handleChange}
             />
-            {errors.school && <small>{errors.school}</small>}
+            {errors.school && <small className='form-error-feedback'>{errors.school}</small>}
           </div>
           <div className='d-flex gap-5'>
             <div className={styles.form_group}>
@@ -100,7 +100,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              {errors.city && <small>{errors.city}</small>}
+              {errors.city && <small className='form-error-feedback'>{errors.city}</small>}
             </div>
             <div className={`position-relative ${styles.form_group}`}>
               <label>
@@ -113,7 +113,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
                 onChange={handleChange}
 
               />
-              {errors.state && <small>{errors.state}</small>}
+              {errors.state && <small className='form-error-feedback'>{errors.state}</small>}
             </div>
           </div>
           <div className='d-flex gap-5'>
@@ -125,7 +125,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              {errors.country && <small>{errors.country}</small>}
+              {errors.country && <small className='form-error-feedback'>{errors.country}</small>}
             </div>
             <div className={`position-relative flex-2 ${styles.form_group}`}>
               <label>
@@ -147,7 +147,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
                 onBlur={handleBlur}
                 onChange={handleChange}
               /> */}
-              {errors.programType && <small>{errors.programType}</small>}
+              {errors.programType && <small className='form-error-feedback'>{errors.programType}</small>}
 
             </div>
           </div>
@@ -160,7 +160,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              {errors.startDate && <small>{errors.startDate}</small>}
+              {errors.startDate && <small className='form-error-feedback'>{errors.startDate}</small>}
             </div>
             <div className={`position-relative ${styles.form_group}`}>
               <label>
@@ -173,7 +173,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
                 onChange={handleChange}
                 disabled={values.stillSchooling}
               />
-              {errors.endDate && <small>{errors.endDate}</small>}
+              {errors.endDate && <small className='form-error-feedback'>{errors.endDate}</small>}
               <div className={styles.end_date_non}>
                 <input name="stillSchooling" checked={values.stillSchooling} type="checkbox" id="stillSchooling" onChange={handleChange} />
                 <label htmlFor="stillSchooling">Still Schooling?</label>

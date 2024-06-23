@@ -203,7 +203,7 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
                   onBlur={handleBlur}
                   onChange={handleChange}
                 />
-                {errors.name && <small>{errors.name}</small>}
+                {errors.name && <small className='form-error-feedback'>{errors.name}</small>}
               </div>
               <div className='d-flex gap-5'>
                 <div className={styles.form_group}>

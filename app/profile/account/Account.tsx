@@ -1,5 +1,5 @@
 'use client'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import styles from '../../Styles/_account.module.scss'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -151,7 +151,7 @@ function Account() {
       twitter: "",
       userId: undefined
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       firstName: Yup.string().required('First Name is required'),
       lastName: Yup.string().required('Last Name is required'),
       about: Yup.string()
@@ -172,7 +172,7 @@ function Account() {
       linkedIn: "",
       twitter: "",
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       github: Yup.string().url("Must be a valid Url"),
       twitter: Yup.string().url("Must be a valid Url"),
       linkedIn: Yup.string().url("Must be a valid Url"),
@@ -192,7 +192,7 @@ function Account() {
       newPassword: '',
       confirmPassword: '',
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       password: Yup.string().required('Password is required'),
       newPassword: Yup.string().required('New Password is required'),
       confirmPassword: Yup.string()
@@ -355,7 +355,7 @@ function Account() {
 
   };
 
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     try {
       setIsFetchingProfile(true)
       const response = (await ProfileService.FetchUserProfile(session?.user.token as string))
@@ -382,7 +382,7 @@ function Account() {
     } finally {
       setIsFetchingProfile(false)
     }
-  }
+  }, [])
 
   const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen)
 
@@ -400,7 +400,7 @@ function Account() {
   );
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    if (typeof window !== undefined && session) {
       // console.log(session)
       setHostname(window.location.hostname)
       setEmail(session?.user.email as string)
@@ -716,9 +716,6 @@ function Account() {
                 <button type='submit'>{isChangingPassword ? <Spinner>Loading...</Spinner> : 'Submit'}</button>
               </div> :
               <span onClick={() => {
-                if (!profile) {
-                  return
-                }
                 setIsPasswordEdit(true)
               }} className={styles.edit_btn}>Edit</span>
           }

@@ -185,7 +185,7 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, closeBtn }:
               onBlur={handleBlur}
               onChange={handleChange}
             />
-            {errors.name && <small>{errors.name}</small>}
+            {errors.name && <small className='form-error-feedback'>{errors.name}</small>}
           </div>
 
           <div className={styles.form_group}>
