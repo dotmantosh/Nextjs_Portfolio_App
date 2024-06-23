@@ -83,7 +83,7 @@ const Sidebar = () => {
       </div>
       <div className={styles.sidebar}>
         <div className={styles.sidebar_logo}>
-          <Link href={"/"}>MPW</Link>
+          <Link href={"/"}>{'<DevsFolio/>'}</Link>
 
         </div>
 

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styles from '../../Styles/_account.module.scss'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -13,6 +13,7 @@ import { IProfile } from '@/app/interfaces/IProfile'
 import { Input, Spinner, FormGroup } from 'reactstrap'
 import DeleteModal from '@/app/Components/Modals/DeleteModal'
 import { CopyIcon, InfoIcon } from '@/app/Components/SVGs/SVGIcons'
+import CropImageModal from '@/app/Components/Modals/CropImageModal'
 
 function Account() {
   const [isAccountEdit, setIsAccountEdit] = useState(false)
@@ -20,6 +21,7 @@ function Account() {
   const [isPasswordEdit, setIsPasswordEdit] = useState(false)
   const [isSettingsEdit, setIsSettingsEdit] = useState(false)
   const [photo, setPhoto] = useState<string>()
+  // const [croppedPhoto, setCroppedPhoto] = useState<string>()
   const [resume, setResume] = useState<string>()
   const [photoErrorMsg, setPhotoErrorMsg] = useState<string>()
   const [resumeErrorMsg, setResumeErrorMsg] = useState<string>()
@@ -34,11 +36,12 @@ function Account() {
   const [isRemovingResume, setIsRemovingResume] = useState(false)
   const [isUpdatingProfilePicture, setIsUpdatingProfilePicture] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isCropImageModalOpen, setIsCropImageModalOpen] = useState(false)
 
   const pathname = usePathname()
   const [hostname, setHostname] = useState('')
 
-  const { data: session } = useSession()
+  const { data: session, update: sessionUpdate } = useSession()
 
   const handleCopyClick = () => {
     const url = `https://${hostname}/public/${session?.user.username}`;
@@ -63,8 +66,11 @@ function Account() {
       console.log(error)
       toast.error("Something went wrong fetching User Information. Try again!")
     } finally {
-      if (photo) setIsUpdatingProfilePicture(false)
-      if (resume) setIsUpdatingResume(false)
+      if (photo) {
+        setIsUpdatingProfilePicture(false)
+        setIsCropImageModalOpen(false)
+      }
+      if (resume) { setIsUpdatingResume(false) }
       setIsCreatingProfile(false)
     }
   }
@@ -87,6 +93,7 @@ function Account() {
       setIsUpdatingResume(false)
       setIsUpdatingProfilePicture(false)
       setIsUpdatingProfile(false)
+      setIsCropImageModalOpen(false)
     }
   }
 
@@ -208,10 +215,23 @@ function Account() {
     },
   });
 
+  const handleUploadProfilePicture = (croppedPhoto: string) => {
+    if (!croppedPhoto) return
+    if (profile) {
+      const payload: IProfile = {
+        ...profile,
+        photo: photo,
+      }
+      createOrUpdateProfile(payload)
+    } else {
+      createOrUpdateProfile({ photo: photo })
+    }
+  }
+
   const handleFileUpload = (e: any) => {
-    if (isCreatingProfile || isUpdatingProfile) return
+    if (isCreatingProfile || isUpdatingProfile) return;
     // Get the selected file
-    const selectedFile: File = e.target.files[0];
+    const selectedFile: File = e?.target?.files[0] as File;
     // console.log('File: ', selectedFile)
     // If a valid file was selected...
     if (
@@ -232,24 +252,18 @@ function Account() {
           const base64URL: string = e.target?.result as string; // This is the base64 URL of the image
 
           if (base64URL) {
-            // Extract only the base64 string (remove "data:image/jpeg;base64," prefix)
-            const base64String = base64URL
-
-            // console.log('base64URL: ', base64String);
-
-            // Update form values
-            setPhoto(
-              base64String,
-            );
-            if (profile) {
-              const payload: IProfile = {
-                ...profile,
-                photo: base64String,
+            const imgElement = document.createElement('img') as HTMLImageElement;
+            imgElement.src = base64URL;
+            imgElement.onload = () => {
+              if (imgElement.width < 180 || imgElement.height < 180) {
+                setPhotoErrorMsg("Image must be at least 180 x 180 pixels.");
+                return setPhoto(undefined);
               }
-              createOrUpdateProfile(payload)
-            } else {
-              createOrUpdateProfile({ photo: base64String })
-            }
+
+              // Update form values
+              setPhoto(base64URL);
+              setIsCropImageModalOpen(true);
+            };
           }
         };
 
@@ -267,12 +281,13 @@ function Account() {
     }
 
     // Set the image url
-    const imageURL = URL.createObjectURL(selectedFile);
+    // const imageURL = URL.createObjectURL(selectedFile);
 
-    // Update the image url state
-    setImgUrl(imageURL);
-    console.log(imgUrl)
+    // // Update the image url state
+    // setImgUrl(imageURL);
+    // console.log(imgUrl);
   };
+
   const handleResumeUpload = (e: any) => {
     if (isCreatingProfile || isUpdatingProfile) return
     // Get the selected file
@@ -353,6 +368,14 @@ function Account() {
       // console.log(data)
       setProfile(data)
       setImgUrl(data.imageUrl)
+      if (data.imageUrl) {
+        await sessionUpdate({
+          user: {
+            ...session?.user,
+            imageUrl: data.imageUrl,
+          },
+        });
+      }
     } catch (error) {
       console.log(error)
       // toast.error("Something went wrong fetching User Information. Try again!")
@@ -362,8 +385,16 @@ function Account() {
   }
 
   const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen)
-  const closeBtnEdit = (
+
+  const toggleCropImageModal = () => setIsCropImageModalOpen(!isCropImageModalOpen)
+
+  const closeBtnDelete = (
     <button className="app_modal_close" onClick={toggleDeleteModal} type="button">
+      &times;
+    </button>
+  );
+  const closeBtnCropImage = (
+    <button className="app_modal_close" onClick={toggleCropImageModal} type="button">
       &times;
     </button>
   );
@@ -379,7 +410,21 @@ function Account() {
 
   return (
     <section>
-      <DeleteModal name='Resume' toggle={toggleDeleteModal} closeBtn={closeBtnEdit} handleDelete={handleDeleteResume} isModalOpen={isDeleteModalOpen} isDeleting={isRemovingResume} />
+      {/* Delete Modals */}
+      {isDeleteModalOpen && <DeleteModal name='Resume' toggle={toggleDeleteModal} closeBtn={closeBtnDelete} handleDelete={handleDeleteResume} isModalOpen={isDeleteModalOpen} isDeleting={isRemovingResume} />}
+
+      {/* CropImageModal */}
+      {isCropImageModalOpen && <CropImageModal
+        toggle={toggleCropImageModal}
+        isModalOpen={isCropImageModalOpen}
+        isLoading={isUpdatingProfilePicture}
+        src={photo as string}
+        onCropComplete={(base64) => { setPhoto(base64) }}
+        closeBtn={closeBtnCropImage}
+
+        handleUploadProfilePicture={handleUploadProfilePicture}
+      />}
+
       <h3 className={`app-heading ${pathname === '/profile/account' && 'text-start'}`}>Account</h3>
       <div className={styles.account_wrapper}>
         <div className={styles.account_top}>
