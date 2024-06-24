@@ -83,17 +83,18 @@ const AuthenticatedNav = () => {
             </NavItem>
           </div>
         }
-        {pathname.startsWith('/public') &&
-          <Dropdown nav inNavbar className='d-flex align-items-center' isOpen={isPortfolioDropdownOpen} toggle={togglePortfolioDropdown}>
+        {
+          pathname.startsWith('/public') &&
+          <Dropdown isOpen={isPortfolioDropdownOpen} toggle={togglePortfolioDropdown} nav className='d-flex align-items-center'>
             <DropdownToggle nav caret>
               Portfolio
             </DropdownToggle>
-            <DropdownMenu className={styles.navDropdown}>
-              <DropdownItem className={`pt-2 ${styles.dropdown_item}`} onClick={() => scrollToTopOfSection("about-me")}>About Me</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => scrollToTopOfSection("tech-stack")}>My Skills</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => scrollToTopOfSection("projects")}>Projects</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => scrollToTopOfSection("workExperience")}>Work Experience</DropdownItem>
-              <DropdownItem className={`pb-2 ${styles.dropdown_item}`} onClick={() => scrollToTopOfSection("education")}>Education</DropdownItem>
+            <DropdownMenu className={styles.navDropdown} >
+              <DropdownItem className={`pt-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("about-me") }}>About Me</DropdownItem>
+              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("tech-stack") }}>My Skills</DropdownItem>
+              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("projects") }}>Projects</DropdownItem>
+              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("workExperience") }}>Work Experience</DropdownItem>
+              <DropdownItem className={`pb-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("education") }} >Education</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         }
