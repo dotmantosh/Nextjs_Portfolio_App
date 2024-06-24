@@ -18,6 +18,7 @@ const AuthenticatedNav = () => {
   const router = useRouter()
   const { data: session } = useSession()
   const navRef = useRef(null)
+  const portfolioNavRef = useRef(null)
   const pathname = usePathname()
   const { username } = useParams()
 
@@ -38,6 +39,7 @@ const AuthenticatedNav = () => {
   }
 
   useOuterClick(navRef, setIsNavOptionsOpen)
+  useOuterClick(portfolioNavRef, setIsPortfolioDropdownOpen)
 
   const scrollToTopOfSection = (sectionId: string) => {
     const section = document.querySelector(`#${sectionId}`);
@@ -85,18 +87,22 @@ const AuthenticatedNav = () => {
         }
         {
           pathname.startsWith('/public') &&
-          <Dropdown isOpen={isPortfolioDropdownOpen} toggle={togglePortfolioDropdown} nav className='d-flex align-items-center'>
-            <DropdownToggle nav caret>
+          <div ref={portfolioNavRef} className={styles.portfolioNav} >
+            <div onClick={togglePortfolioDropdown} className={styles.portfolioNavHeader}>
               Portfolio
-            </DropdownToggle>
-            <DropdownMenu className={styles.navDropdown} >
-              <DropdownItem className={`pt-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("about-me") }}>About Me</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("tech-stack") }}>My Skills</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("projects") }}>Projects</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("workExperience") }}>Work Experience</DropdownItem>
-              <DropdownItem className={`pb-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("education") }} >Education</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+              <DropdownSmallIcon />
+            </div>
+            {
+              isPortfolioDropdownOpen &&
+              <div className={styles.navDropdown} >
+                <div className={`pt-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("about-me") }}>About Me</div>
+                <div className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("tech-stack") }}>My Skills</div>
+                <div className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("projects") }}>Projects</div>
+                <div className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("workExperience") }}>Work Experience</div>
+                <div className={`pb-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("education") }} >Education</div>
+              </div>
+            }
+          </div>
         }
         {
           session ?
@@ -132,6 +138,7 @@ const AuthenticatedNav = () => {
             )
         }
       </Nav>
+
       {/* <button onClick={handleLogout} className={styles.logout}>Logout</button> */}
       {/* <div className={`${styles.headerSocials} ${styles.mobileHeaderSocials} button`}>
         <GithubIconSvgLight />

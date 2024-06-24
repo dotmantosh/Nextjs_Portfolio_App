@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../Styles/_signup.module.scss'
 import Link from 'next/link'
 import * as Yup from 'yup'
@@ -28,6 +28,7 @@ function Login() {
     password: Yup.string().min(6).required("Please enter password"),
   })
   // const { mutate } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const toggle = () => setIsForgotPassword(!isForgotPassword)
 
@@ -72,6 +73,12 @@ function Login() {
       &times;
     </button>
   );
+
+  useEffect(() => {
+    if (session) {
+      router.push("/profile/skills")
+    }
+  }, [session])
   return (
     <>
       <div className={styles.signup}>
