@@ -29,7 +29,7 @@ export default function Home() {
       }
       // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setRestricted(true)
     } finally {
       setIsFetchingProfile(false)

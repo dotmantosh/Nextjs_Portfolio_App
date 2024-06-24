@@ -70,7 +70,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
     initialValues: selectedWorkExperience,
     validationSchema: workExperienceValidation,
     onSubmit: async (values) => {
-      console.log(values)
+      // console.log(values)
       values.description = description
       values.skills = selectedSkills.map((skill) => skill.value);
       handleUpdateWorkExperience(values as IWorkExperience)
@@ -121,9 +121,9 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
 
   useEffect(() => {
     setInitialValues(selectedWorkExperience)
-    console.log(initialValues)
-    console.log(values)
-    console.log(selectedWorkExperience)
+    // console.log(initialValues)
+    // console.log(values)
+    // console.log(selectedWorkExperience)
     setDescription(selectedWorkExperience.description)
     if (selectedWorkExperience.workType?.length) {
       const selectedWorkType: IOptions = { value: selectedWorkExperience.workType, label: selectedWorkExperience.workType }

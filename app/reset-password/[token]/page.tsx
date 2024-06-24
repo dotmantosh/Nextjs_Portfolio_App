@@ -34,7 +34,7 @@ const ResetPassword = () => {
     initialValues,
     validationSchema,
     onSubmit: values => {
-      console.log('Form Two values:', values);
+      // console.log('Form Two values:', values);
       handleResetPassword(values)
     }
   })
@@ -46,7 +46,7 @@ const ResetPassword = () => {
       toast.success("Password changed successfully")
       router.push("/login")
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong changing password. Try again!")
     } finally {
       setIsChangingPassword(false)

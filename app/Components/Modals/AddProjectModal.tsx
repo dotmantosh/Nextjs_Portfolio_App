@@ -97,7 +97,7 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, closeBtn }:
           if (base64URL) {
             // Extract only the base64 string (remove "data:image/jpeg;base64," prefix)
             const base64String = base64URL
-            console.log(base64URL)
+            // console.log(base64URL)
 
             // console.log('base64URL: ', base64String);
 

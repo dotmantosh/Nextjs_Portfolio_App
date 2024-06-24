@@ -34,7 +34,7 @@ const Sidebar = () => {
       router.push("/")
     } catch (error) {
       router.push("/")
-      console.log(error)
+      // console.log(error)
     }
   }
 

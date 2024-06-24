@@ -64,7 +64,7 @@ function Account() {
       setIsAccountEdit(false)
       fetchUserProfile()
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching User Information. Try again!")
     } finally {
       if (photo) {
@@ -88,7 +88,7 @@ function Account() {
       setIsSocialEdit(false)
       fetchUserProfile()
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching User Information. Try again!")
     } finally {
       setIsUpdatingResume(false)
@@ -105,7 +105,7 @@ function Account() {
       toast.success("Password changed successfully")
       setIsPasswordEdit(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong changing password. Try again!")
     } finally {
       setIsChangingPassword(false)
@@ -121,7 +121,7 @@ function Account() {
       await ProfileService.DeleteResume(profile?._id as string, session?.user.token as string)
       toast.success("Resume deleted successfully")
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong when deleting resume. Try again!")
     } finally {
       setIsRemovingResume(false)
@@ -159,7 +159,7 @@ function Account() {
       // about: Yup.string()
     }),
     onSubmit: values => {
-      console.log('Form One values:', values);
+      // console.log('Form One values:', values);
       if (photo) values.photo = photo as string
       if (resume) values.resume = resume as string
       createOrUpdateProfile(values)
@@ -201,7 +201,7 @@ function Account() {
         .oneOf([Yup.ref('newPassword')], 'Passwords must match')
     }),
     onSubmit: values => {
-      console.log('Form Two values:', values);
+      // console.log('Form Two values:', values);
       handleChangePassword(values)
     },
   });
@@ -211,7 +211,7 @@ function Account() {
       allowPublicUrl: true,
     },
     onSubmit: values => {
-      console.log('Form Four values:', values);
+      // console.log('Form Four values:', values);
       handleUpdateProfile(values)
     },
   });
@@ -323,7 +323,7 @@ function Account() {
           // console.log('base64URL: ', base64String);
 
           // Update form values
-          console.log(base64String)
+          // console.log(base64String)
           setResume(
             base64String,
           );
@@ -386,7 +386,7 @@ function Account() {
         });
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       // toast.error("Something went wrong fetching User Information. Try again!")
     } finally {
       setIsFetchingProfile(false)

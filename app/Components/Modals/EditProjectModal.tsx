@@ -140,7 +140,7 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
 
     // Update the image url state
     setImgUrl(imageURL);
-    console.log(imgUrl)
+    // console.log(imgUrl)
   };
 
   const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
