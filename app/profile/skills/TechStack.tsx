@@ -51,7 +51,7 @@ function TechStack() {
       // console.log(data)
       setSkills(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Skills. Try again!")
     } finally {
       setIsFetchingSkills(false)
@@ -109,7 +109,7 @@ function TechStack() {
       toast.success("Tech Stack updated successfully/")
       handleFetchUserSkills()
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong creating skill. Try again.")
     } finally {
       setIsCreatingTechStack(false)
@@ -132,7 +132,7 @@ function TechStack() {
       }
 
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong deleting skill. Try again.")
     } finally {
       setIsDeletingTechStack(false)

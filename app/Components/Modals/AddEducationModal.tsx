@@ -48,7 +48,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
     initialValues,
     validationSchema: educationValidation,
     onSubmit: async (values) => {
-      console.log(values)
+      // console.log(values)
       handleCreateEducation(values as IEducation)
       // console.log(errors)
     }

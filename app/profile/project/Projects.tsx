@@ -72,9 +72,9 @@ function Projects() {
       setIsFetchingProject(true)
       const { data } = await ProfileService.FetchProject(session?.user.token as string)
       setProjects(data)
-      console.log(data)
+      // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Projects. Try again!")
     } finally {
       setIsFetchingProject(false)
@@ -89,7 +89,7 @@ function Projects() {
       pathname.startsWith('/public') ? setProjectsToDisplay(data.slice(0, showMoreCount)) : setProjectsToDisplay(data)
       // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Projects. Try again!")
     } finally {
       setIsFetchingProject(false)
@@ -104,7 +104,7 @@ function Projects() {
       handleFetchProject()
       setIsAddModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Project. Try again!")
     } finally {
       setIsCreatingProject(false)
@@ -119,7 +119,7 @@ function Projects() {
       handleFetchProject()
       setIsAddModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Project. Try again!")
     } finally {
       setIsUpdatingProject(false)
@@ -134,7 +134,7 @@ function Projects() {
       handleFetchProject()
       setIsDeleteModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Project. Try again!")
     } finally {
       setIsDeletingProject(false)
@@ -142,12 +142,12 @@ function Projects() {
   }
 
   const handleOnEditButtonClicked = (project: IProject) => {
-    console.log(project)
+    // console.log(project)
     setSelectedProject(project)
     setIsEditModalOpen(true)
   }
   const handleOnDeleteButtonClicked = (project: IProject) => {
-    console.log(project)
+    // console.log(project)
     setSelectedProject(project)
     setIsDeleteModalOpen(true)
   }

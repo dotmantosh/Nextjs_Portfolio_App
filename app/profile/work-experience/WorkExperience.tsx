@@ -58,9 +58,9 @@ function WorkExperience() {
         return workExperience
       })
       setWorkExperiences(newWorkExperience)
-      console.log(data)
+      // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching WorkExperiences. Try again!")
     } finally {
       setIsFetchingWorkExperience(false)
@@ -79,7 +79,7 @@ function WorkExperience() {
       setWorkExperiences(newWorkExperience)
       // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching WorkExperiences. Try again!")
     } finally {
       setIsFetchingWorkExperience(false)
@@ -94,7 +94,7 @@ function WorkExperience() {
       handleFetchWorkExperience()
       setIsAddModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching WorkExperience. Try again!")
     } finally {
       setIsCreatingWorkExperience(false)
@@ -109,7 +109,7 @@ function WorkExperience() {
       handleFetchWorkExperience()
       setIsEditModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching WorkExperience. Try again!")
     } finally {
       setIsUpdatingWorkExperience(false)
@@ -124,7 +124,7 @@ function WorkExperience() {
       handleFetchWorkExperience()
       setIsDeleteModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Education. Try again!")
     } finally {
       setIsDeletingWorkExperience(false)

@@ -61,7 +61,7 @@ function Login() {
           return
         }
         toast.error("Something went wrong!")
-        console.log(error)
+        // console.log(error)
         setIsLoading(false)
       }
     }

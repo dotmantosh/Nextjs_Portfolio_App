@@ -52,9 +52,9 @@ function Education() {
       setIsFetchingEducation(true)
       const { data } = await ProfileService.FetchEducation(session?.user.token as string)
       setEducations(data)
-      console.log(data)
+      // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Educations. Try again!")
     } finally {
       setIsFetchingEducation(false)
@@ -65,9 +65,9 @@ function Education() {
       setIsFetchingEducation(true)
       const { data } = await ProfileService.FetchEducationByUsername(username as string)
       setEducations(data)
-      console.log(data)
+      // console.log(data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Educations. Try again!")
     } finally {
       setIsFetchingEducation(false)
@@ -82,7 +82,7 @@ function Education() {
       handleFetchEducation()
       setIsAddModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Education. Try again!")
     } finally {
       setIsCreatingEducation(false)
@@ -96,7 +96,7 @@ function Education() {
       handleFetchEducation()
       setIsEditModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Education. Try again!")
     } finally {
       setIsUpdatingEducation(false)
@@ -110,7 +110,7 @@ function Education() {
       handleFetchEducation()
       setIsDeleteModalOpen(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error("Something went wrong fetching Education. Try again!")
     } finally {
       setIsDeletingEducation(false)

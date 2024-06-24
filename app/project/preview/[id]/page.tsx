@@ -25,7 +25,7 @@ const page = () => {
       setProject(response.data)
     } catch (error) {
       toast.error("Could not fetch Project. Try again")
-      console.log(error)
+      // console.log(error)
     } finally {
       setIsFetchingProfile(false)
     }

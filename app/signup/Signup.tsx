@@ -46,7 +46,7 @@ function SignUp() {
       toast.success("SignUp successful")
       router.push("/login")
     } catch (error: any) {
-      console.log(error)
+      // console.log(error)
       if (error.message) {
         toast.error(error.message)
       } else if (error.response?.status === 400) {

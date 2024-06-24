@@ -28,7 +28,7 @@ const ForgotPasswordModal = ({ isModalOpen, toggle, closeBtn }: AddModalProps) =
     initialValues,
     validationSchema: educationValidation,
     onSubmit: async (values) => {
-      console.log(values)
+      // console.log(values)
       handleForgotPassword(values)
       // console.log(errors)
     }

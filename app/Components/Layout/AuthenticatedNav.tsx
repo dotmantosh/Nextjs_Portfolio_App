@@ -48,7 +48,7 @@ const AuthenticatedNav = () => {
   useEffect(() => {
     if (typeof window !== undefined) {
       setHostname(window.location.origin);
-      console.log(session)
+      // console.log(session)
     }
   }, [typeof window, session])
 

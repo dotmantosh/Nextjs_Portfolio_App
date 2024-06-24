@@ -82,9 +82,9 @@ const EditEducationModal = ({ selectedEducation, handleUpdateEducation, isUpdati
   // console.log(values)
   useEffect(() => {
     setInitialValues(selectedEducation)
-    console.log(initialValues)
-    console.log(values)
-    console.log(selectedEducation)
+    // console.log(initialValues)
+    // console.log(values)
+    // console.log(selectedEducation)
 
     setProgramType({ value: selectedEducation.programType, label: selectedEducation.programType })
     resetForm({ values: selectedEducation })
