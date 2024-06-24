@@ -355,7 +355,7 @@ function Account() {
 
   };
 
-  const fetchUserProfile = useCallback(async () => {
+  const fetchUserProfile = async () => {
     try {
       setIsFetchingProfile(true)
       const response = (await ProfileService.FetchUserProfile(session?.user.token as string))
@@ -389,7 +389,7 @@ function Account() {
     } finally {
       setIsFetchingProfile(false)
     }
-  }, [])
+  }
 
   const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen)
 
@@ -407,7 +407,7 @@ function Account() {
   );
 
   useEffect(() => {
-    if (typeof window !== undefined && session) {
+    if (typeof window !== undefined) {
       // console.log(session)
       setHostname(window.location.hostname)
       setEmail(session?.user.email as string)
