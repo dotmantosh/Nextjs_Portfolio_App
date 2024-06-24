@@ -32,7 +32,7 @@ function WorkExperience() {
   const [isUpdatingWorkExperience, setIsUpdatingWorkExperience] = useState(false)
   const [isFetchingWorkExperience, setIsFetchingWorkExperience] = useState(false)
   const [isDeletingWorkExperience, setIsDeletingWorkExperience] = useState(false)
-  const [workExperiences, setWorkExperiences] = useState<IWorkExperience[]>()
+  const [workExperiences, setWorkExperiences] = useState<IWorkExperience[]>([])
 
   const [selectedWorkExperience, setSelectedWorkExperience] = useState<IWorkExperience>()
 

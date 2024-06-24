@@ -95,7 +95,7 @@ function HeroSection({ profile }: Prop) {
                 </div>
 
                 {
-                  profile.allowResumeDownload && profile.resumeUrl.length > 0 && !isDownloadingResume &&
+                  profile.allowResumeDownload && profile.resumeUrl && !isDownloadingResume &&
                   <p className='mb-0' onClick={handleDownloadResume}><DownloadIcon /> Download My Resume (.pdf) {isDownloadingResume && <Spinner>Loading...</Spinner>}</p>
                 }
 

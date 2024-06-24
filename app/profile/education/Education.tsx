@@ -23,7 +23,7 @@ function Education() {
   const [isUpdatingEducation, setIsUpdatingEducation] = useState(false)
   const [isFetchingEducation, setIsFetchingEducation] = useState(false)
   const [isDeletingEducation, setIsDeletingEducation] = useState(false)
-  const [educations, setEducations] = useState<IEducation[]>()
+  const [educations, setEducations] = useState<IEducation[]>([])
   const [selectedEducation, setSelectedEducation] = useState<IEducation>()
 
   const { data: session } = useSession()
