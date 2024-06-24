@@ -116,7 +116,7 @@ function HeroSection({ profile }: Prop) {
         profile?.about &&
         <section id='about-me' className={styles.about}>
           <h3 className='app-heading'>A little About Me</h3>
-          <p className='text-center'>{profile?.about}</p>
+          <p className='text-center mt-4'>{profile?.about}</p>
         </section>
       }
     </>

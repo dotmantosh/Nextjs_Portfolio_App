@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
-import { DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
 import styles from '../../Styles/_header.module.scss'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { AuthService } from '@/app/api/authService'
@@ -13,6 +13,7 @@ import { type } from 'os'
 
 const AuthenticatedNav = () => {
   const [isNavOptionsOpen, setIsNavOptionsOpen] = useState(false)
+  const [isPortfolioDropdownOpen, setIsPortfolioDropdownOpen] = useState(false)
   const [hostname, setHostname] = useState("")
   const router = useRouter()
   const { data: session } = useSession()
@@ -24,6 +25,7 @@ const AuthenticatedNav = () => {
   const showNavArr = ["/"]
 
   const toggleNav = () => { setIsNavOptionsOpen(!isNavOptionsOpen) }
+  const togglePortfolioDropdown = () => { setIsPortfolioDropdownOpen(!isPortfolioDropdownOpen) }
 
   const handleLogout = async () => {
     try {
@@ -81,20 +83,19 @@ const AuthenticatedNav = () => {
             </NavItem>
           </div>
         }
-        {
-          pathname.startsWith('/public') &&
-          <UncontrolledDropdown nav inNavbar className='d-flex align-items-center'>
+        {pathname.startsWith('/public') &&
+          <Dropdown nav inNavbar className='d-flex align-items-center' isOpen={isPortfolioDropdownOpen} toggle={togglePortfolioDropdown}>
             <DropdownToggle nav caret>
               Portfolio
             </DropdownToggle>
-            <DropdownMenu className={styles.navDropdown} >
-              <DropdownItem className={`pt-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("about-me") }}>About Me</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("tech-stack") }}>My Skills</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("projects") }}>Projects</DropdownItem>
-              <DropdownItem className={styles.dropdown_item} onClick={() => { scrollToTopOfSection("workExperience") }}>Work Experience</DropdownItem>
-              <DropdownItem className={`pb-2 ${styles.dropdown_item}`} onClick={() => { scrollToTopOfSection("education") }} >Education</DropdownItem>
+            <DropdownMenu className={styles.navDropdown}>
+              <DropdownItem className={`pt-2 ${styles.dropdown_item}`} onClick={() => scrollToTopOfSection("about-me")}>About Me</DropdownItem>
+              <DropdownItem className={styles.dropdown_item} onClick={() => scrollToTopOfSection("tech-stack")}>My Skills</DropdownItem>
+              <DropdownItem className={styles.dropdown_item} onClick={() => scrollToTopOfSection("projects")}>Projects</DropdownItem>
+              <DropdownItem className={styles.dropdown_item} onClick={() => scrollToTopOfSection("workExperience")}>Work Experience</DropdownItem>
+              <DropdownItem className={`pb-2 ${styles.dropdown_item}`} onClick={() => scrollToTopOfSection("education")}>Education</DropdownItem>
             </DropdownMenu>
-          </UncontrolledDropdown>
+          </Dropdown>
         }
         {
           session ?
