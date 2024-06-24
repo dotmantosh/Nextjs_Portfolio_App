@@ -37,6 +37,7 @@ function Account() {
   const [isUpdatingProfilePicture, setIsUpdatingProfilePicture] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isCropImageModalOpen, setIsCropImageModalOpen] = useState(false)
+  const [profileFetched, setProfileFetched] = useState(false)
 
   const pathname = usePathname()
   const [hostname, setHostname] = useState('')
@@ -373,6 +374,7 @@ function Account() {
         }
       }
       // console.log(data)
+      setProfileFetched(true)
       setProfile(data)
       setImgUrl(data.imageUrl)
       if (data.imageUrl) {
@@ -407,13 +409,13 @@ function Account() {
   );
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    if (typeof window !== undefined && session && !profileFetched) {
       // console.log(session)
       setHostname(window.location.hostname)
       setEmail(session?.user.email as string)
       fetchUserProfile()
     }
-  }, [session])
+  }, [session, fetchUserProfile, profileFetched])
 
   return (
     <section>
