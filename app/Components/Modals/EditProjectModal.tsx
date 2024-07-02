@@ -1,6 +1,7 @@
+'use client'
 import { IProject } from '@/app/interfaces/IProject';
-import React, { useEffect, useMemo, useState } from 'react'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import React, { useEffect, useMemo, useState, useRef } from 'react'
+import { Badge, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import * as Yup from 'yup'
 import styles from '../../Styles/_projects.module.scss'
 import { useFormik } from 'formik';
@@ -13,6 +14,7 @@ import { customStyle } from '@/app/helpers/selectStyles'
 import { ProfileService } from '@/app/api/profileService';
 import { ISkill } from '@/app/interfaces/ISkill';
 import { toast } from 'sonner';
+import useOuterClick from '@/app/hooks/useOuterClick';
 
 
 
@@ -51,9 +53,13 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
   const [projects, setProjects] = useState<IProject[]>()
   const [skillsOptions, setSkillsOptions] = useState<IOptionProp[]>()
   const [selectedSkills, setSelectedSkills] = useState<IOptionProp[]>([])
-
+  const [isSkillsSelectOpen, setIsSkillsSelectOpen] = useState(false)
   const [initialValues, setInitialValues] = useState<IProject>(selectedProject || InitialValues)
-  const [windowReady, setWindowReady] = useState(false)
+
+  const skillsSelectRef = useRef(null)
+  useOuterClick(skillsSelectRef, setIsSkillsSelectOpen)
+
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
 
   // const initialValues = {
   //   name: '',
@@ -143,7 +149,6 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
     // console.log(imgUrl)
   };
 
-  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
   const fetchSkills = async () => {
     try {
       const skills = (await ProfileService.FetchSkills()).data
@@ -151,11 +156,38 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
         value: skill._id,
         label: skill.name,
       }));
-      setSkillsOptions(newSkillOptions)
+      setSkillsOptions(newSkillOptions as IOptionProp[])
     } catch (error) {
       toast.error("Could not load skills.")
     }
   }
+  const handleChangeSkills = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    selectedOption: IOptionProp
+  ) => {
+    event.stopPropagation();
+    console.log(selectedSkills)
+    console.log(selectedOption)
+    if (selectedSkills.some(skill => skill.value === selectedOption.value)) {
+      // Remove the skill if it exists
+      const newSelectedSkills = selectedSkills.filter(skill => skill.value !== selectedOption.value);
+      setSelectedSkills(newSelectedSkills);
+      setFieldValue("skills", newSelectedSkills.map(skill => skill.value));
+    } else {
+      // Add the skill if it doesn't exist
+      const newSelectedSkills = [...selectedSkills, selectedOption];
+      setSelectedSkills(newSelectedSkills);
+      setFieldValue("skills", newSelectedSkills.map(skill => skill.value));
+    }
+  };
+
+
+  const handleRemoveSkill = (event: React.MouseEvent<HTMLSpanElement>, selectedOption: IOptionProp) => {
+    event.stopPropagation()
+    const newSelectedSkills = selectedSkills.filter(skill => skill.value !== selectedOption.value)
+    setSelectedSkills(newSelectedSkills)
+  }
+
   useEffect(() => {
     fetchSkills()
   }, [])
@@ -163,7 +195,7 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
     setImgUrl(selectedProject.imageUrl)
     setDescription(selectedProject.description)
     setInitialValues(selectedProject)
-    setSelectedSkills(selectedProject && selectedProject.populatedSkills && selectedProject.populatedSkills.map((skill) => ({ value: skill._id as string, label: skill.name as string })) || [])
+    setSelectedSkills(selectedProject && selectedProject.populatedSkills && selectedProject.populatedSkills.map((skill) => ({ value: skill._id as string, label: skill.name as string })) as IOptionProp[] || [])
     resetForm({ values: selectedProject })
 
   }, [selectedProject])
@@ -244,7 +276,10 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
                   isMulti
                   options={skillsOptions}
                   name='skills'
-                  onChange={(selectedOptions) => setSelectedSkills(selectedOptions as IOptionProp[])}
+                  onChange={(selectedOptions) => {
+                    setSelectedSkills(selectedOptions as IOptionProp[])
+                    setFieldValue("skills", selectedOptions.map(option => option.value))
+                  }}
                   closeMenuOnSelect={false}
                   className='app_select'
                   classNamePrefix='select'
@@ -253,13 +288,37 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
                   placeholder=""
 
                 />
+                {/* <div
+                  onClick={() => { setIsSkillsSelectOpen(true) }} className={styles.skills_select}>
+                  <input type="text" readOnly />
 
+                  {selectedSkills.map((skill, index) => (
+                    <Badge key={index} style={{ zIndex: 1, height: "max-content" }}>
+                      {skill.label} &nbsp;| <span onClick={(event) => { handleRemoveSkill(event, skill) }} style={{ cursor: 'pointer', marginLeft: '3px' }}>x</span>
+                    </Badge>
+                  ))}
+
+                  {isSkillsSelectOpen && <div ref={skillsSelectRef} className={styles.skills_option}>
+                    {skillsOptions && skillsOptions.map((skill, index) => (
+                      <div
+                        key={index}
+                        className={styles.skills_option_item}
+                        onClick={(event) => {
+                          handleChangeSkills(event, skill)
+                        }}
+                      >
+                        <input type="checkbox" checked={selectedSkills.some(selectedSkill => selectedSkill.value === skill.value)} />
+                        <p className='mb-0'>{skill.label}</p>
+                      </div>
+                    ))}
+                  </div>}
+                </div> */}
               </div>
               <div className={styles.form_group}>
                 <label>Description</label>
-                <div className={styles.form_description_quill}>
-                  <ReactQuill theme="snow" style={{ height: "100%", }} value={description} onChange={setDescription} />
-                </div>
+
+                <ReactQuill theme="snow" style={{ height: "200px", color: "#000", background: "#fff", overflow: "auto" }} value={description} onChange={setDescription} />
+
               </div>
             </ModalBody>
             <ModalFooter className={'app_modal_footer'}>

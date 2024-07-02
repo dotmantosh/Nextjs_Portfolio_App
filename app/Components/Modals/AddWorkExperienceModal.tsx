@@ -1,3 +1,4 @@
+'use client'
 import { IWorkExperience } from '@/app/interfaces/IWorkExperience';
 import React, { useEffect, useMemo, useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap';
@@ -27,7 +28,6 @@ interface IOptionProp {
 }
 const AddWorkExperienceModal = ({ handleCreateWorkExperience, isCreatingWorkExperience, isModalOpen, toggle, closeBtn }: AddModalProps) => {
   const [description, setDescription] = useState("")
-  const [windowReady, setWindowReady] = useState(false)
   const [workType, setWorkType] = useState()
   const [employmentType, setEmploymentType] = useState()
   const [skillsOptions, setSkillsOptions] = useState<IOptionProp[]>()
@@ -53,7 +53,7 @@ const AddWorkExperienceModal = ({ handleCreateWorkExperience, isCreatingWorkExpe
     stillWorking: Yup.boolean(),
     title: Yup.string().required("Job Title is required"),
     company: Yup.string().required("Organization is required"),
-    workType: Yup.string().required("Course is required"),
+    workType: Yup.string().required("Work Type is required"),
     startDate: Yup.date().required("Start Date is required"),
     endDate: Yup.date().when('stillWorkingHere', {
       is: (val: boolean) => !val,
@@ -62,7 +62,7 @@ const AddWorkExperienceModal = ({ handleCreateWorkExperience, isCreatingWorkExpe
     })
   });
 
-  const { values, errors, setFieldValue, handleBlur, handleChange, handleSubmit } = useFormik({
+  const { values, errors, setFieldValue, resetForm, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
     validationSchema: workExperienceValidation,
     onSubmit: async (values) => {
@@ -249,11 +249,11 @@ const AddWorkExperienceModal = ({ handleCreateWorkExperience, isCreatingWorkExpe
 
           <div className={styles.form_group}>
             <label>Description</label>
-            <div className={styles.form_description_quill}>
 
-              <ReactQuill theme="snow" style={{ height: "100%" }} value={description} onChange={setDescription} />
 
-            </div>
+            <ReactQuill theme="snow" style={{ height: "200px", color: "#000", background: "#fff", overflow: "auto" }} value={description} onChange={setDescription} />
+
+
           </div>
         </ModalBody>
         <ModalFooter className={'app_modal_footer'}>

@@ -4,16 +4,7 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-  Container,
+  NavbarBrand
 } from 'reactstrap';
 
 import styles from '../../Styles/_header.module.scss'
@@ -43,7 +34,7 @@ function AppHeader() {
     <>
       <div className={`container ${styles.app_header}`}>
         <Navbar expand={'md'} className={styles.appNavbar}>
-          <NavbarBrand href="/" className={styles.logo}>{'<Devsfolio/>'}</NavbarBrand>
+          <NavbarBrand href="/" className={styles.logo}>{'<Devsfolios/>'}</NavbarBrand>
           <NavbarToggler onClick={toggleMenu} className={styles.customToggler} />
           <Collapse isOpen={isOpen} navbar>
             {

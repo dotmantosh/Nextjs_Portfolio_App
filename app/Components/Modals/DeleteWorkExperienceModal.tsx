@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
 import { DeleteIcon } from '../SVGs/SVGIcons'

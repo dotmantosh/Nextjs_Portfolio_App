@@ -1,3 +1,4 @@
+'use client'
 import React, { Dispatch, SetStateAction } from 'react'
 import styles from '../../Styles/_projects.module.scss'
 import Image from 'next/image'

@@ -1,3 +1,4 @@
+'use client'
 import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
@@ -45,7 +46,7 @@ const EditEducationModal = ({ selectedEducation, handleUpdateEducation, isUpdati
   const educationValidation = Yup.object().shape({
     stillSchooling: Yup.boolean(),
     school: Yup.string().required("School is required"),
-    qualification: Yup.string().required("Qualificaition is required"),
+    qualification: Yup.string().required("Qualification is required"),
     startDate: Yup.date().required("Start Date is required"),
     endDate: Yup.date().when('stillSchooling', (stillSchooling, schema) => {
       return stillSchooling ? schema : schema.required("End Date is required");

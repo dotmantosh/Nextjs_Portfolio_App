@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
 import { DeleteIcon } from '../SVGs/SVGIcons'
@@ -35,7 +36,6 @@ const DeleteProjectModal = ({ handleDeleteProject, isModalOpen, isDeletingProjec
         </button>{' '}
         <button onClick={handleDeleteProject} type='submit' className='app_modal_save'>
           {isDeletingProject ? <Spinner>Loading...</Spinner> : "Delete"}
-          Delete
         </button>
       </ModalFooter>
 

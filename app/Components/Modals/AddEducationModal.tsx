@@ -1,3 +1,4 @@
+'use client'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
@@ -35,7 +36,7 @@ const AddEducationModal = ({ handleCreateEducation, isModalOpen, toggle, closeBt
   const educationValidation = Yup.object().shape({
     stillSchooling: Yup.boolean(),
     school: Yup.string().required("School is required"),
-    qualification: Yup.string().required("Qualificaition is required"),
+    qualification: Yup.string().required("Qualification is required"),
     startDate: Yup.date().required("Start Date is required"),
     endDate: Yup.date().when('stillSchooling', {
       is: (val: boolean) => !val,
