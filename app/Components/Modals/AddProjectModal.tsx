@@ -1,3 +1,4 @@
+'use client'
 import { IProject } from '@/app/interfaces/IProject';
 import React, { useEffect, useMemo, useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
@@ -239,11 +240,11 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, closeBtn }:
           </div>
           <div className={styles.form_group}>
             <label>Description</label>
-            <div className={styles.form_description_quill}>
 
-              <ReactQuill theme="snow" style={{ height: "100%", }} value={description} onChange={setDescription} />
 
-            </div>
+            <ReactQuill theme="snow" style={{ height: "200px", color: "#000", background: "#fff", overflow: "auto" }} value={description} onChange={setDescription} />
+
+
           </div>
         </ModalBody>
         <ModalFooter className={'app_modal_footer'}>

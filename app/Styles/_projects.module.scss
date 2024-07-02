@@ -266,6 +266,51 @@
   }
 }
 
+.skills_select {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 40px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.skills_option {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #fff;
+  color: var(--text-color-dark);
+  z-index: 1;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.skills_option_item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  input {
+    width: max-content;
+    position: relative;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .addModalbutton {
     position: relative;

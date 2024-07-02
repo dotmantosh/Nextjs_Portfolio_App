@@ -1,3 +1,4 @@
+'use client'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'

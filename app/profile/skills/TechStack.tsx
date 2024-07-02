@@ -43,6 +43,12 @@ function TechStack() {
   const [techStacks, setTechStacks] = useState<ITechStack[]>([])
   const [techStackToDisplay, setTechStacksToDisplay] = useState<ITechStack[]>()
   const [selectedSkill, setSelectedSkill] = useState<ISkill>()
+  const [filterText, setFilterText] = useState('')
+
+  // Function to filter skills based on the filterText
+  const filteredSkills = skills?.filter(skill =>
+    skill.name.toLowerCase().includes(filterText.toLowerCase())
+  )
 
   const handleFetchSkills = async () => {
     try {
@@ -179,9 +185,9 @@ function TechStack() {
           </div>
           <div className={styles.skills_wrapper}>
             {isFetchingSkills && <div className='d-flex justify-content-center'><Spinner>Loading...</Spinner> </div>}
-            {skills && skills.map((skill, index) => (
+            {filteredSkills && filteredSkills.map((skill, index) => (
               <div onClick={() => { createOrDeleteTechStack(skill) }} key={index} className={styles.skills_item}>
-                <input type="checkbox" checked={techStacks?.some(stack => stack.skillId === skill._id)} />
+                <input type="checkbox" checked={techStacks?.some(stack => stack.skillId === skill._id)} value={filterText} onChange={(e) => setFilterText(e.target.value)} />
                 <p className='mb-0 d-flex justify-content-between align-items-center flex-grow-1'>{skill.name} {(isCreatingTechStack || isDeletingTechStack) && selectedSkill?._id === skill._id && <Spinner>Loading...</Spinner>}</p>
               </div>
             ))}

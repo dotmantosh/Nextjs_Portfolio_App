@@ -1,5 +1,5 @@
 'use client'
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import styles from '../../Styles/_account.module.scss'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { ProfileService } from '@/app/api/profileService'
+import dynamic from 'next/dynamic'
 import { toast } from 'sonner'
 import { IProfile } from '@/app/interfaces/IProfile'
 import { Input, Spinner, FormGroup } from 'reactstrap'
@@ -26,6 +27,7 @@ function Account() {
   const [photoErrorMsg, setPhotoErrorMsg] = useState<string>()
   const [resumeErrorMsg, setResumeErrorMsg] = useState<string>()
   const [email, setEmail] = useState("")
+  const [about, setAbout] = useState("")
   const [imgUrl, setImgUrl] = useState<string>()
   const [profile, setProfile] = useState<IProfile>()
   const [isCreatingProfile, setIsCreatingProfile] = useState(false)
@@ -41,6 +43,8 @@ function Account() {
 
   const pathname = usePathname()
   const [hostname, setHostname] = useState('')
+
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
 
   const { data: session, update: sessionUpdate } = useSession()
 
@@ -376,6 +380,7 @@ function Account() {
       // console.log(data)
       setProfileFetched(true)
       setProfile(data)
+      setAbout(data.about)
       setImgUrl(data.imageUrl)
       if (data.imageUrl) {
         await sessionUpdate({
@@ -555,7 +560,7 @@ function Account() {
             </div>
             <div className={styles.form_group}>
               <label>About</label>
-              <textarea
+              {/* <textarea
                 name="about"
                 id="about"
                 readOnly={!isAccountEdit}
@@ -564,7 +569,12 @@ function Account() {
                 onBlur={formOne.handleBlur}
                 value={formOne.values.about} placeholder='Enter short intro about yourself'>
 
-              </textarea>
+              </textarea> */}
+              <div className={styles.about_quill}>
+                <ReactQuill theme="snow" readOnly={!isAccountEdit} style={{ height: "250px", color: "#000", background: "#fff", overflow: "auto" }}
+                  value={about} onChange={setAbout} placeholder='Enter short intro about yourself'
+                />
+              </div>
             </div>
             {
               isAccountEdit ?

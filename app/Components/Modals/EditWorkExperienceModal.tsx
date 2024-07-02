@@ -1,6 +1,7 @@
+'use client'
 import { IWorkExperience } from '@/app/interfaces/IWorkExperience';
-import React, { useEffect, useMemo, useState } from 'react'
-import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap';
+import React, { useEffect, useMemo, useState, useRef } from 'react'
+import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner, Badge } from 'reactstrap';
 import * as Yup from 'yup'
 import styles from '../../Styles/_workExperience.module.scss'
 import { useFormik } from 'formik';
@@ -13,6 +14,7 @@ import { customStyle } from '@/app/helpers/selectStyles';
 import { ProfileService } from '@/app/api/profileService';
 import { ISkill } from '@/app/interfaces/ISkill';
 import { toast } from 'sonner';
+import useOuterClick from '@/app/hooks/useOuterClick';
 
 interface EditModalProps {
   isUpdatingWorkExperience: boolean
@@ -45,7 +47,7 @@ const InitialValues: IWorkExperience = {
 
 const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperience, handleUpdateWorkExperience, isModalOpen, toggle, closeBtn }: EditModalProps) => {
   const [description, setDescription] = useState("")
-  const [windowReady, setWindowReady] = useState(false)
+  const [isSkillsSelectOpen, setIsSkillsSelectOpen] = useState(false)
   const [workType, setWorkType] = useState<IOptions>()
   const [employmentType, setEmploymentType] = useState<IOptions>()
   const [skillsOptions, setSkillsOptions] = useState<IOptions[]>()
@@ -53,13 +55,17 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
   const [initialValues, setInitialValues] = useState<IWorkExperience>(selectedWorkExperience || InitialValues)
   const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
 
+  const skillsSelectRef = useRef(null)
+
+  useOuterClick(skillsSelectRef, setIsSkillsSelectOpen)
+
 
 
   const workExperienceValidation = Yup.object().shape({
     stillWorking: Yup.boolean(),
     title: Yup.string().required("School is required"),
-    company: Yup.string().required("Work type is required"),
-    workType: Yup.string().required("Course is required"),
+    company: Yup.string().required("Organization is required"),
+    workType: Yup.string().required("Work Type is required"),
     startDate: Yup.date().required("Start Date is required"),
     endDate: Yup.date().when('stillWorkingHere', (stillWorkingHere, schema) => {
       return stillWorkingHere ? schema : schema.required("End Date is required");
@@ -72,7 +78,6 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
     onSubmit: async (values) => {
       // console.log(values)
       values.description = description
-      values.skills = selectedSkills.map((skill) => skill.value);
       handleUpdateWorkExperience(values as IWorkExperience)
     }
   })
@@ -106,6 +111,33 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
     handleChange(event); // Handle change for stillWorkingHere
   };
 
+  const handleChangeSkills = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    selectedOption: IOptions
+  ) => {
+    console.log(selectedSkills)
+    console.log(selectedOption)
+    event.stopPropagation();
+    if (selectedSkills.some(skill => skill.value === selectedOption.value)) {
+      // Remove the skill if it exists
+      const newSelectedSkills = selectedSkills.filter(skill => skill.value !== selectedOption.value);
+      setSelectedSkills(newSelectedSkills);
+      setFieldValue("skills", newSelectedSkills.map(skill => skill.value));
+    } else {
+      // Add the skill if it doesn't exist
+      const newSelectedSkills = [...selectedSkills, selectedOption];
+      setSelectedSkills(newSelectedSkills);
+      setFieldValue("skills", newSelectedSkills.map(skill => skill.value));
+    }
+  };
+
+
+  const handleRemoveSkill = (event: React.MouseEvent<HTMLSpanElement>, selectedOption: IOptions) => {
+    event.stopPropagation()
+    const newSelectedSkills = selectedSkills.filter(skill => skill.value !== selectedOption.value)
+    setSelectedSkills(newSelectedSkills)
+  }
+
   const fetchSkills = async () => {
     try {
       const skills = (await ProfileService.FetchSkills()).data
@@ -120,6 +152,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
   }
 
   useEffect(() => {
+    if (!selectedWorkExperience) return
     setInitialValues(selectedWorkExperience)
     // console.log(initialValues)
     // console.log(values)
@@ -133,8 +166,16 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
       const selectedEmploymentType: IOptions = { value: selectedWorkExperience.employmentType, label: selectedWorkExperience.employmentType }
       setEmploymentType(selectedEmploymentType)
     }
-    setSelectedSkills(selectedWorkExperience && selectedWorkExperience.populatedSkills && selectedWorkExperience.populatedSkills.map((skill) => ({ value: skill._id as string, label: skill.name as string })) || [])
     resetForm({ values: selectedWorkExperience })
+    if (selectedWorkExperience.populatedSkills) {
+      console.log(selectedWorkExperience.populatedSkills)
+      const newSelectedSkills = selectedWorkExperience.populatedSkills.map(skill => ({
+        value: skill._id,
+        label: skill.name
+      }));
+      setSelectedSkills(newSelectedSkills as IOptions[])
+      setFieldValue("skills", selectedWorkExperience.populatedSkills)
+    }
   }, [selectedWorkExperience])
   useEffect(() => {
     fetchSkills()
@@ -177,7 +218,10 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                   isMulti
                   options={skillsOptions}
                   name='skills'
-                  onChange={(selectedOptions) => setSelectedSkills(selectedOptions as IOptions[])}
+                  onChange={(selectedOptions) => {
+                    setSelectedSkills(selectedOptions as IOptions[]);
+                    setFieldValue("skills", selectedOptions.map(option => option.value));
+                  }}
                   className='app_select'
                   classNamePrefix='select'
                   value={selectedSkills}
@@ -186,6 +230,31 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
                   placeholder=""
 
                 />
+                {/* <div
+                  onClick={() => { setIsSkillsSelectOpen(true) }} className={styles.skills_select}>
+                  <input type="text" readOnly />
+
+                  {selectedSkills.map((skill, index) => (
+                    <Badge key={index} style={{ zIndex: 1, height: "max-content" }}>
+                      {skill.label} &nbsp;| <span onClick={(event) => { handleRemoveSkill(event, skill) }} style={{ cursor: 'pointer', marginLeft: '3px' }}>x</span>
+                    </Badge>
+                  ))}
+
+                  {isSkillsSelectOpen && <div ref={skillsSelectRef} className={styles.skills_option}>
+                    {skillsOptions && skillsOptions.map((skill, index) => (
+                      <div
+                        key={index}
+                        className={styles.skills_option_item}
+                        onClick={(event) => {
+                          handleChangeSkills(event, skill)
+                        }}
+                      >
+                        <input type="checkbox" checked={selectedSkills.some(selectedSkill => selectedSkill.value === skill.value)} />
+                        <p className='mb-0'>{skill.label}</p>
+                      </div>
+                    ))}
+                  </div>}
+                </div> */}
 
               </div>
               <div className='d-flex gap-5'>
@@ -278,11 +347,11 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
 
               <div className={styles.form_group}>
                 <label>Description</label>
-                <div className={styles.form_description_quill}>
 
-                  <ReactQuill theme="snow" style={{ height: "100%", }} value={description} onChange={setDescription} />
 
-                </div>
+                <ReactQuill theme="snow" style={{ height: "200px", color: "#000", background: "#fff", overflow: "auto" }} value={description} onChange={setDescription} />
+
+
               </div>
             </ModalBody>
             <ModalFooter className={'app_modal_footer'}>
