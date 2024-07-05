@@ -1,7 +1,7 @@
 'use client'
 import { IProject } from '@/app/interfaces/IProject';
 import React, { useEffect, useMemo, useState } from 'react'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap';
 import * as Yup from 'yup'
 import styles from '../../Styles/_projects.module.scss'
 import { useFormik } from 'formik';
@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 
 interface AddModalProps {
   handleCreateProject: (values: IProject) => void
+  isCreatingProject: boolean
   isModalOpen: boolean
   toggle: () => void
   closeBtn: React.ReactElement<HTMLButtonElement>;
@@ -28,9 +29,8 @@ interface IOptionProp {
   value: string
 }
 
-const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, closeBtn }: AddModalProps) => {
+const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, isCreatingProject, closeBtn }: AddModalProps) => {
   const [photoErrorMsg, setPhotoErrorMsg] = useState<string>()
-  const [isCreatingProject, setIsCreatingProject] = useState(false)
   const [isFetchingProject, setIsFetchingProject] = useState(false)
   const [description, setDescription] = useState("")
   const [photo, setPhoto] = useState<string>()
@@ -56,8 +56,6 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, closeBtn }:
     name: Yup.string().required("Title is required"),
     githubRepo: Yup.string(),
     livePreviewLink: Yup.string(),
-    startDate: Yup.date(),
-    endDate: Yup.date(),
   });
 
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -251,8 +249,13 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, closeBtn }:
           <button className='app_modal_cancel' onClick={toggle}>
             Cancel
           </button>{' '}
-          <button type="submit" className='app_modal_save'>
-            Save
+          <button type='submit' className='app_modal_save'>
+            {
+              isCreatingProject ? <Spinner>Loading...</Spinner>
+                :
+                "Save"
+            }
+
           </button>
         </ModalFooter>
       </form>

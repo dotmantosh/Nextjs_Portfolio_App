@@ -364,7 +364,7 @@ function Account() {
     try {
       setIsFetchingProfile(true)
       const response = (await ProfileService.FetchUserProfile(session?.user.token as string))
-      const data = response.data
+      const data = response.data[0]
       if (data) {
         // Only reset form if data is different from current form values
         if (JSON.stringify(formOne.values) !== JSON.stringify(data)) {

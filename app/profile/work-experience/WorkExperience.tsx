@@ -105,7 +105,7 @@ function WorkExperience() {
     try {
       setIsUpdatingWorkExperience(true)
       await ProfileService.UpdateWorkExperience(values, selectedWorkExperience?._id as string, session?.user.token as string)
-      toast.success("WorkExperience saved successfully")
+      toast.success("WorkExperience updated successfully")
       handleFetchWorkExperience()
       setIsEditModalOpen(false)
     } catch (error) {
@@ -120,7 +120,7 @@ function WorkExperience() {
     try {
       setIsDeletingWorkExperience(true)
       await ProfileService.DeleteWorkExperience(selectedWorkExperience?._id as string, session?.user.token as string)
-      toast.success("Work Experience saved successfully")
+      toast.success("Work Experience deleted successfully")
       handleFetchWorkExperience()
       setIsDeleteModalOpen(false)
     } catch (error) {

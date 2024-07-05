@@ -1,7 +1,7 @@
 'use client'
 import { IProject } from '@/app/interfaces/IProject';
 import React, { useEffect, useMemo, useState, useRef } from 'react'
-import { Badge, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Badge, Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap';
 import * as Yup from 'yup'
 import styles from '../../Styles/_projects.module.scss'
 import { useFormik } from 'formik';
@@ -22,6 +22,7 @@ import useOuterClick from '@/app/hooks/useOuterClick';
 interface AddModalProps {
   selectedProject: IProject
   handleUpdateProject: (values: IProject) => void
+  isUpdatingProject: boolean
   isModalOpen: boolean
   toggle: () => void
   closeBtn: React.ReactElement<HTMLButtonElement>;
@@ -43,7 +44,7 @@ const InitialValues = {
   photo: ''
 }
 
-const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, toggle, closeBtn }: AddModalProps) => {
+const EditProjectModal = ({ selectedProject, handleUpdateProject, isUpdatingProject, isModalOpen, toggle, closeBtn }: AddModalProps) => {
   const [photoErrorMsg, setPhotoErrorMsg] = useState<string>()
   const [isCreatingProject, setIsCreatingProject] = useState(false)
   const [isFetchingProject, setIsFetchingProject] = useState(false)
@@ -76,18 +77,17 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
     name: Yup.string().required("Title is required"),
     githubRepo: Yup.string(),
     livePreviewLink: Yup.string(),
-    startDate: Yup.date(),
-    endDate: Yup.date(),
   });
 
   const { values, errors, setFieldValue, handleBlur, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues,
     validationSchema: projectValidation,
     onSubmit: async (values) => {
-      console.log(values)
+      // console.log(values)
       values.description = description
       values.photo = photo as string
       values.skills = selectedSkills.map((skill) => skill.value);
+      // console.log(values)
       handleUpdateProject(values as IProject)
       // console.log(errors)
     }
@@ -96,7 +96,7 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
   const handleFileUpload = (e: any) => {
     // Get the selected file
     const selectedFile: File = e.target.files[0];
-    console.log('File: ', selectedFile)
+    // console.log('File: ', selectedFile)
     // If a valid file was selected...
     if (
       selectedFile.type === 'image/jpg' ||
@@ -242,7 +242,7 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
                   <label>Start Date</label>
                   <input type="date" name='startDate'
 
-                    value={moment(values.startDate).format('YYYY-MM-DD')}
+                    value={values.startDate ? moment(values.startDate).format('YYYY-MM-DD') : ''}
                     onBlur={handleBlur}
                     onChange={handleChange} />
                 </div>
@@ -251,21 +251,21 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
                     End Date
                   </label>
                   <input type="date" name='endDate'
-                    value={moment(values.endDate).format('YYYY-MM-DD')}
+                    value={values.endDate ? moment(values.endDate).format('YYYY-MM-DD') : ''}
                     onBlur={handleBlur}
                     onChange={handleChange} />
                 </div>
               </div>
               <div className={styles.form_group}>
                 <label>Live Preview Link</label>
-                <input type="text" placeholder='e.g https://abc.com' name='previewLink'
+                <input type="text" placeholder='e.g https://abc.com' name='livePreviewLink'
                   value={values.livePreviewLink}
                   onBlur={handleBlur}
                   onChange={handleChange} />
               </div>
               <div className={styles.form_group}>
                 <label>Git Remote Repo Link</label>
-                <input type="text" placeholder='e.g https://github.com/abc/repo_name' name='gitRepo'
+                <input type="text" placeholder='e.g https://github.com/abc/repo_name' name='githubRepo'
                   value={values.githubRepo}
                   onBlur={handleBlur}
                   onChange={handleChange} />
@@ -326,7 +326,12 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isModalOpen, t
                 Cancel
               </button>{' '}
               <button type='submit' className='app_modal_save'>
-                Save
+                {
+                  isUpdatingProject ? <Spinner>Loading...</Spinner>
+                    :
+                    "Save"
+                }
+
               </button>
             </ModalFooter>
           </form>

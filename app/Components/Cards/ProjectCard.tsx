@@ -36,7 +36,13 @@ function ProjectCard({ onDeleteIconClicked, onEditIconClicked, project }: projec
                 </div>
             }
             <div className={styles.projectCardImgContainer}>
-                <Image src={project.imageUrl as string} fill alt="project" />
+                {
+                    project.imageUrl ?
+                        <Image src={project.imageUrl as string} fill alt="project" />
+                        :
+                        <Image src={Project1} alt="project" />
+
+                }
             </div>
             <div className={styles.projectDetails}>
                 <h4 className={styles.projectTitle}>{project.name}</h4>
@@ -66,7 +72,7 @@ function ProjectCard({ onDeleteIconClicked, onEditIconClicked, project }: projec
                     {
                         project.githubRepo &&
                         <div className={styles.projectViewCode}>
-                            <GithubIconSvgLight />
+                            <GithubIconSvgLight style={{ width: "24px", height: "24px" } as any} />
                             <p className='mb-0'>View Code</p>
                         </div>
                     }
