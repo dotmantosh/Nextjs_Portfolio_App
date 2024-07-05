@@ -115,7 +115,7 @@ function Projects() {
     try {
       setIsUpdatingProject(true)
       await ProfileService.UpdateProject(values, selectedProject?._id as string, session?.user.token as string)
-      toast.success("Project saved successfully")
+      toast.success("Project updated successfully")
       handleFetchProject()
       setIsAddModalOpen(false)
     } catch (error) {
@@ -130,7 +130,7 @@ function Projects() {
     try {
       setIsDeletingProject(true)
       await ProfileService.DeleteProject(selectedProject?._id as string, session?.user.token as string)
-      toast.success("Project saved successfully")
+      toast.success("Project deleted successfully")
       handleFetchProject()
       setIsDeleteModalOpen(false)
     } catch (error) {
@@ -176,11 +176,12 @@ function Projects() {
   return (
     <section ref={sectionRef} id='projects' className={`${styles.projects} ${pathname === "/profile/project" && 'mt-0'}`}>
 
-      <AddProjectModal toggle={toggleAddModal} handleCreateProject={handleCreateProject} closeBtn={closeBtnAdd} isModalOpen={isAddModalOpen} />
+      <AddProjectModal toggle={toggleAddModal} isCreatingProject={isCreatingProject} handleCreateProject={handleCreateProject} closeBtn={closeBtnAdd} isModalOpen={isAddModalOpen} />
       {
         selectedProject &&
         <EditProjectModal
           selectedProject={selectedProject as IProject}
+          isUpdatingProject={isUpdatingProject}
           toggle={toggleEditModal} handleUpdateProject={handleUpdateProject} closeBtn={closeBtnEdit} isModalOpen={isEditModalOpen} />
       }
       {
@@ -197,7 +198,7 @@ function Projects() {
         </button>
       }
       <div className={styles.projectsWrapper}>
-        <Row>
+        <Row className='gy-4'>
           {
             isFetchingProject && !projects?.length &&
             <div className='d-flex justify-content-center'>

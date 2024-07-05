@@ -175,6 +175,8 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
       }));
       setSelectedSkills(newSelectedSkills as IOptions[])
       setFieldValue("skills", selectedWorkExperience.populatedSkills)
+      setFieldValue("startDate", selectedWorkExperience.startDate || "")
+      setFieldValue("endDate", selectedWorkExperience.endDate || "")
     }
   }, [selectedWorkExperience])
   useEffect(() => {
