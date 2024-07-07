@@ -174,7 +174,7 @@ function WorkExperience() {
   }, [typeof window])
 
   return (
-    <section ref={sectionRef} id='workExperience' className={`${styles.workExperience} ${pathname.startsWith('/profile') && 'mt-0'}`}>
+    <section ref={sectionRef} id='workExperience' className={`${styles.workExperience} ${pathname.startsWith('/profile') ? 'mt-0' : ''}`}>
 
       <AddWorkExperienceModal
         isCreatingWorkExperience={isCreatingWorkExperience}
