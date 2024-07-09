@@ -65,7 +65,7 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, isCreatingP
       values.description = description
       values.photo = photo as string
       values.skills = selectedSkills.map((skill) => skill.value) as never[]
-      console.log(values)
+      // console.log(values)
       handleCreateProject(values as IProject)
       // console.log(errors)
     }
@@ -74,7 +74,7 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, isCreatingP
   const handleFileUpload = (e: any) => {
     // Get the selected file
     const selectedFile: File = e.target.files[0];
-    console.log('File: ', selectedFile)
+    // console.log('File: ', selectedFile)
     // If a valid file was selected...
     if (
       selectedFile.type === 'image/jpg' ||
@@ -125,7 +125,7 @@ const AddProjectModal = ({ handleCreateProject, isModalOpen, toggle, isCreatingP
 
     // Update the image url state
     setImgUrl(imageURL);
-    console.log(imgUrl)
+    // console.log(imgUrl)
   };
 
   // const handleSkillsChange = (option: any) => {

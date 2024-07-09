@@ -57,7 +57,7 @@ const EditEducationModal = ({ selectedEducation, handleUpdateEducation, isUpdati
     initialValues: selectedEducation,
     validationSchema: educationValidation,
     onSubmit: async (values) => {
-      console.log(values)
+      // console.log(values)
       handleUpdateEducation(values as IEducation)
       // console.log(errors)
     }
