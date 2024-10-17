@@ -115,8 +115,8 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     selectedOption: IOptions
   ) => {
-    console.log(selectedSkills)
-    console.log(selectedOption)
+    // console.log(selectedSkills)
+    // console.log(selectedOption)
     event.stopPropagation();
     if (selectedSkills.some(skill => skill.value === selectedOption.value)) {
       // Remove the skill if it exists
@@ -168,7 +168,7 @@ const EditWorkExperienceModal = ({ selectedWorkExperience, isUpdatingWorkExperie
     }
     resetForm({ values: selectedWorkExperience })
     if (selectedWorkExperience.populatedSkills) {
-      console.log(selectedWorkExperience.populatedSkills)
+      // console.log(selectedWorkExperience.populatedSkills)
       const newSelectedSkills = selectedWorkExperience.populatedSkills.map(skill => ({
         value: skill._id,
         label: skill.name

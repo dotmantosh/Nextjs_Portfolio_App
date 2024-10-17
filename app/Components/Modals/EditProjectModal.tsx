@@ -166,8 +166,8 @@ const EditProjectModal = ({ selectedProject, handleUpdateProject, isUpdatingProj
     selectedOption: IOptionProp
   ) => {
     event.stopPropagation();
-    console.log(selectedSkills)
-    console.log(selectedOption)
+    // console.log(selectedSkills)
+    // console.log(selectedOption)
     if (selectedSkills.some(skill => skill.value === selectedOption.value)) {
       // Remove the skill if it exists
       const newSelectedSkills = selectedSkills.filter(skill => skill.value !== selectedOption.value);
